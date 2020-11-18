@@ -11,6 +11,8 @@
 #' @export
 v_fields <- function(type) {
     switch(type,
+           "Referee" = c("No", "Gender", "FirstName", "LastName", "Birthdate", "FederationCode"),
+           
            "Volleyball Tournament" = c("Actions", "ArticleBaseUrl", "BuyTicketsUrl", "City", "Code", "ContainsLiveComments", "ContainsLiveScores", "ContainsMatches", "ContainsMatchResults", "ContainsNews", "ContainsPictures", "ContainsPlayByPlay", "ContainsPlayers", "ContainsRanking", "ContainsStatistics", "ContainsTeams", "ContainsVideos", "ContainsVideoTracking", "CountryCode", "DeadlineO2", "DeadlineO2A", "DeadlineO2bis", "DefaultMatchFormat", "DefaultPlayersRanking", "DeletedDT", "EndDate", "EventLogos", "Gender", "IsFreeEntrance", "IsVisManaged", "LastChangeDT", "LastChangeUser", "LastChangeUsername", "Logos", "MaxNbPlayersO2", "MaxNbPlayersO2A", "MaxNbPlayersO2bis", "MaxNbTeamOfficialsOnBench", "MaxNbTeams", "Name", "No", "NoArticlePresentation", "NoEvent", "NoImageLogo", "NoImageOrganizerLogo", "NoImagePublicity", "OrganizerCode", "OrganizerType", "PlayerDisplayMethod", "PoolName", "PublishOnMsdp", "RoundCode", "Season", "ShortName", "ShortNameOrName", "StartDate", "Status", "TeamType", "TournamentLogos", "Type", "Version", "WebSite"),
 
            "Volleyball Tournament Ranking" = c("DeletedDT", "LastChangeDT", "LastChangeUser", "LastChangeUsername", "No", "NoTeam", "NoTournament", "Position", "Rank", "RankText", "RankTextWithRepeat", "TeamCode", "TeamName", "TeamNameOrCodeOrSource", "TeamSource", "Version"),
