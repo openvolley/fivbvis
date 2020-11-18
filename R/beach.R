@@ -1,0 +1,11 @@
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachOlympicSelectionRanking.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachWorldTourRanking.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachMatch.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachMatchList.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachRound.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachRoundList.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachRoundRanking.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachTeam.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachTeamList.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachTournament.html
+## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachTournamentRanking.html
