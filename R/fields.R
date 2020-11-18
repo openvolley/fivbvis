@@ -1,3 +1,14 @@
+#' Return the fields for a given VIS data type
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/}
+#' @param type string: the data type, currently one of "Volleyball Tournament", "Volleyball Tournament Ranking", "Volleyball Tournament Filter", "Volleyball Player", "Volleyball Match"
+#'
+#' @return A character vector of field names
+#'
+#' @examples
+#' v_fields("Volleyball Tournament")
+#'
+#' @export
 v_fields <- function(type) {
     switch(type,
            "Volleyball Tournament" = c("Actions", "ArticleBaseUrl", "BuyTicketsUrl", "City", "Code", "ContainsLiveComments", "ContainsLiveScores", "ContainsMatches", "ContainsMatchResults", "ContainsNews", "ContainsPictures", "ContainsPlayByPlay", "ContainsPlayers", "ContainsRanking", "ContainsStatistics", "ContainsTeams", "ContainsVideos", "ContainsVideoTracking", "CountryCode", "DeadlineO2", "DeadlineO2A", "DeadlineO2bis", "DefaultMatchFormat", "DefaultPlayersRanking", "DeletedDT", "EndDate", "EventLogos", "Gender", "IsFreeEntrance", "IsVisManaged", "LastChangeDT", "LastChangeUser", "LastChangeUsername", "Logos", "MaxNbPlayersO2", "MaxNbPlayersO2A", "MaxNbPlayersO2bis", "MaxNbTeamOfficialsOnBench", "MaxNbTeams", "Name", "No", "NoArticlePresentation", "NoEvent", "NoImageLogo", "NoImageOrganizerLogo", "NoImagePublicity", "OrganizerCode", "OrganizerType", "PlayerDisplayMethod", "PoolName", "PublishOnMsdp", "RoundCode", "Season", "ShortName", "ShortNameOrName", "StartDate", "Status", "TeamType", "TournamentLogos", "Type", "Version", "WebSite"),

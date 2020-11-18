@@ -2,6 +2,7 @@
 
 export(v_cache_dir)
 export(v_caching)
+export(v_fields)
 export(v_flag)
 export(v_get_player)
 export(v_get_volley_match)
