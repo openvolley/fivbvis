@@ -6,6 +6,8 @@ v_fields <- function(type) {
 
            "Volleyball Tournament Filter" = c("CountryCode", "FirstDate", "Genders", "IsVisManaged", "LastDate", "NoEvent", "Numbers", "PublishOnMsdp", "Seasons", "Statuses"), ## https://www.fivb.org/VisSDK/VisWebService/#VolleyTournamentFilter.html
 
+           "Volleyball Player" = c("Block", "ClubFederationCode", "ClubName", "DeletedDT", "Height", "IsCaptain", "IsLibero", "IsPreselected", "IsSelected", "LastChangeDT", "LastChangeUser", "LastChangeUsername", "NbSelOG", "NbSelOther", "NbSelWC", "No", "NoEvent", "NoPhoto", "NoPlayer", "NoShirt", "NoTeam", "NoTournament", "Spike", "Version", "Weight"),
+
            stop("unexpected fields type: ", type)
            )
 }
