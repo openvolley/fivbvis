@@ -3,6 +3,10 @@ base_url <- "https://www.fivb.org/Vis2009/XmlRequest.asmx"
 first_to_upper <- function(z) paste0(toupper(substr(z, 1, 1)), substr(z, 2, nchar(z)))
 
 ## internal helper function to build the XML request structure
+## any extra arguments passed to this function (i.e. anything other than type, fields, version, filter, or old_style)
+##  are added to the xml request as attributes (e.g. "No", "NoTournament" for some requests)
+##  note that the first letter of these parameters is capitalized when added to the xml BUT we need to be careful with CamelCased
+##  parameters like NoTournament (i.e. the call must be like `v_request(xyz, NoTournament = 123)` )
 v_request <- function(type, fields, version, filter, old_style = FALSE, ...) {
     body <- minixml::xml_elem("Request", Type = type)
     dots <- list(...)
