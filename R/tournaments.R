@@ -21,7 +21,7 @@ v_get_volley_tournament_list <- function(fields = v_fields("Volleyball Tournamen
     ## </Request>
     body <- minixml::xml_elem("Request", Type = "GetVolleyTournamentList")
     body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    make_request(body = body, node_path = "//VolleyballTournament")
 }
 
 #' Get a volleyball tournament
@@ -45,29 +45,29 @@ v_get_volley_tournament <- function(no, fields) {
     body <- minixml::xml_elem("Request", Type = "GetVolleyTournament")
     body <- body$update(No = no)
     if (!missing(fields) && !is.null(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    make_request(body = body, node_path = "//VolleyballTournament")
 }
 
 #' Get the ranking of a volleyball tournament
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetVolleyTournamentRanking.html}
-#' @param no integer: the tournament number ("No" as returned by `v_get_volley_tournament_list`
+#' @param notournament integer: the tournament number ("No" as returned by `v_get_volley_tournament_list`
 #' @param fields character: fields to return
 #'
 #' @return A data.frame
 #'
 #' @examples
 #' \dontrun{
-#'   v_get_volley_tournament_ranking(1)
+#'   v_get_volley_tournament_ranking(1032)
 #' }
 #'
 #' @export
-v_get_volley_tournament_ranking <- function(no, fields = v_fields("Volleyball Tournament Ranking")) {
+v_get_volley_tournament_ranking <- function(notournament, fields = v_fields("Volleyball Tournament Ranking")) {
     ## <Request Type="GetVolleyTournamentRanking"
     ## No="<tournament number>"
     ## Fields="<list of the fields to return>" />
     body <- minixml::xml_elem("Request", Type = "GetVolleyTournamentRanking")
-    body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    body <- body$update(NoTournament = notournament, Fields = paste(fields, collapse = " "))
+    make_request(body = body, node_path = "//VolleyballTournamentRanking")
 }
 

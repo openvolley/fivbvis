@@ -21,7 +21,7 @@ v_get_volley_player_list <- function(fields = v_fields("Volleyball Player"), ver
     ## </Request>
     body <- minixml::xml_elem("Request", Type = "GetVolleyPlayerList")
     body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    make_request(body = body, node_path = "//VolleyballPlayer")
 }
 
 #' Get a registration of a player in a volleyball tournament
@@ -45,7 +45,7 @@ v_get_volley_player <- function(no, fields) {
     body <- minixml::xml_elem("Request", Type = "GetVolleyPlayer")
     body <- body$update(No = no)
     if (!missing(fields) && !is.null(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    make_request(body = body, node_path = "//VolleyballPlayer")
 }
 
 #' Get a player
@@ -69,7 +69,7 @@ v_get_player <- function(no, fields) {
     body <- minixml::xml_elem("Request", Type = "GetPlayer")
     body <- body$update(No = no)
     if (!missing(fields) && !is.null(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    make_request(body = body, node_path = "//Player")
 }
 
 ## TODO https://www.fivb.org/VisSDK/VisWebService/#GetVolleyPlayersRankingList.html

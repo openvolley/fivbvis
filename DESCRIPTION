@@ -1,6 +1,6 @@
 Package: fivbvis
 Title: Client for the FIVB VIS Web Service \url{https://www.fivb.org/VisSDK/VisWebService/}
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: c(person("Ben", "Raymond", email = "ben@untan.gl", role = c("aut", "cre")),
              person("Adrien", "Ickowicz", role = "aut"),
              person("openvolley.org", role = "org"))

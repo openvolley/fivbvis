@@ -21,7 +21,8 @@ v_get_referee_list <- function(fields = v_fields("Referee"), version, filter) {
     ## </Request>
     body <- minixml::xml_elem("Request", Type = "GetRefereeList")
     body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    body <- minixml::xml_elem("Requests")$append(body)
+    make_request(body = body, node_path = "//Referee")
 }
 
 

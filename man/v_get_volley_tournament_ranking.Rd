@@ -5,12 +5,12 @@
 \title{Get the ranking of a volleyball tournament}
 \usage{
 v_get_volley_tournament_ranking(
-  no,
+  notournament,
   fields = v_fields("Volleyball Tournament Ranking")
 )
 }
 \arguments{
-\item{no}{integer: the tournament number ("No" as returned by \code{v_get_volley_tournament_list}}
+\item{notournament}{integer: the tournament number ("No" as returned by \code{v_get_volley_tournament_list}}
 
 \item{fields}{character: fields to return}
 }
@@ -22,7 +22,7 @@ Get the ranking of a volleyball tournament
 }
 \examples{
 \dontrun{
-  v_get_volley_tournament_ranking(1)
+  v_get_volley_tournament_ranking(1032)
 }
 
 }

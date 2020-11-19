@@ -19,7 +19,7 @@ v_get_volley_match <- function(no, fields) {
     body <- minixml::xml_elem("Request", Type = "GetVolleyMatch")
     body <- body$update(No = no)
     if (!missing(fields) && !is.null(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    make_request(body = body, node_path = "//VolleyballMatch")
 }
 
 
@@ -46,7 +46,7 @@ v_get_volley_match_list <- function(fields = v_fields("Volleyball Match"), versi
     ## </Request>
     body <- minixml::xml_elem("Request", Type = "GetVolleyMatchList")
     body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body)
+    make_request(body = body, node_path = "//VolleyballMatches")
 }
 
 

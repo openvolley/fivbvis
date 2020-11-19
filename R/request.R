@@ -1,6 +1,7 @@
 base_url <- "https://www.fivb.org/Vis2009/XmlRequest.asmx"
 
-make_request <- function(body, type = "xml", cache = v_caching()) {
+## return can be "parsed" (convert XML to data frame) or (probably for testing purposes) "content" (unparsed content) or "request" (the request object)
+make_request <- function(body, type = "xml", return = "parsed", node_path, cache = v_caching()) {
     hash <- paste0(digest::digest(list(body = body, type = type)), ".rds")
     cfname <- file.path(v_cache_dir(), hash)
     if (isTRUE(cache) && file.exists(cfname) && file.size(cfname) > 0) {
@@ -14,8 +15,15 @@ make_request <- function(body, type = "xml", cache = v_caching()) {
             return(out)
         }
     }
-    if (v_verbose()) message("making request to ", tryCatch(body$attribs$Type, error = function(e) NULL))
-    out <- do_make_request(body = body, type = type)
+    if (v_verbose()) {
+        req_type <- NULL
+        try({
+            req_type <- body$attribs$Type
+            if (is.null(req_type)) req_type <- unique(unlist(lapply(body$children, function(z) z$attribs$Type)))
+        }, silent = TRUE)
+        message("making ", req_type, " request")
+    }
+    out <- do_make_request(body = body, type = type, return = return, node_path = node_path)
     if (isTRUE(cache) || cache %in% "refresh") {
         if (v_verbose()) message("caching to ", cfname)
         saveRDS(out, file = cfname)
@@ -23,32 +31,41 @@ make_request <- function(body, type = "xml", cache = v_caching()) {
     out
 }
 
-do_make_request <- function(body, type = "xml") {
+do_make_request <- function(body, type = "xml", return, node_path) {
     if (inherits(body, "XMLElement")) body <- as.character(body)
     type <- match.arg(tolower(type), c("json", "xml"))
     cf <- if (type == "json") httr::accept_json() else httr::accept_xml()
     out <- httr::POST(url = base_url, config = cf, body = body)
-    if (httr::http_type(out) == "application/xml") {
-        out <- XML::xmlToList(XML::xmlParse(httr::content(out, as = "text", encoding = "UTF-8"), asText = TRUE))
-        if (is.character(out)) {
-            try(out <- as.data.frame(as.list(out), stringsAsFactors = FALSE))
+    if (identical(return, "response")) return(out)
+    response_type <- httr::http_type(out)
+    out <- httr::content(out, as = "text", encoding = "UTF-8")
+    if (identical(return, "content")) return(out)
+    if (response_type == "application/xml") {
+        if (!missing(node_path)) {
+            ## use XML:::xmlAttrsToDataFrame
+            out <- XML:::xmlAttrsToDataFrame(XML::getNodeSet(XML::xmlParse(out, asText = TRUE), path = node_path))
         } else {
-            attrs <- NULL
-            if (".attrs" %in% names(out)) {
-                attrs <- out$.attrs
-                out$.attrs <- NULL
+            out <- XML::xmlToList(XML::xmlParse(out, asText = TRUE))
+            if (is.character(out)) {
+                try(out <- as.data.frame(as.list(out), stringsAsFactors = FALSE), silent = TRUE)
+            } else {
+                attrs <- NULL
+                if (".attrs" %in% names(out)) {
+                    attrs <- out$.attrs
+                    out$.attrs <- NULL
+                }
+                try({
+                    out <- do.call(rbind, lapply(out, function(z) as.data.frame(as.list(z), stringsAsFactors = FALSE)))
+                    rownames(out) <- NULL
+                    for (aa in names(attrs)) attr(out, aa) <- attrs[[aa]]
+                }, silent = TRUE)
             }
-            try({
-                out <- do.call(rbind, lapply(out, function(z) as.data.frame(as.list(z), stringsAsFactors = FALSE)))
-                rownames(out) <- NULL
-                for (aa in names(attrs)) attr(out, aa) <- attrs[[aa]]
-            })#, silent = TRUE)
         }
         out
-    } else if (httr::http_type(out) == "application/json") {
-        jsonlite::fromJSON(httr::content(out, as = "text"))
+    } else if (response_type == "application/json") {
+        jsonlite::fromJSON(out)
     } else {
-        stop("unexpected response type: ", httr::http_type(out))
+        stop("unexpected response type: ", response_type)
     }
 }
 
