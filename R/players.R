@@ -19,9 +19,8 @@ v_get_volley_player_list <- function(fields = v_fields("Volleyball Player"), ver
     ##          Version="<version of local list>">
     ##   <Filter /> <!-- optional: contains the filter to use -->
     ## </Request>
-    body <- minixml::xml_elem("Request", Type = "GetVolleyPlayerList")
-    body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body, node_path = "//VolleyballPlayer")
+    req <- v_request(type = "GetVolleyPlayerList", fields = fields, version = version, filter = filter)
+    make_request(request = req, node_path = "//VolleyballPlayer")
 }
 
 #' Get a registration of a player in a volleyball tournament
@@ -42,10 +41,8 @@ v_get_volley_player <- function(no, fields) {
     ## <Request Type="GetVolleyPlayer"
     ##      No="<player number>">
     ##      Fields="<Optional: list of the fields to return>" />
-    body <- minixml::xml_elem("Request", Type = "GetVolleyPlayer")
-    body <- body$update(No = no)
-    if (!missing(fields) && !is.null(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body, node_path = "//VolleyballPlayer")
+    req <- v_request(type = "GetVolleyPlayer", no = no, fields = fields)
+    make_request(req, node_path = "//VolleyballPlayer")
 }
 
 #' Get a player
@@ -66,10 +63,8 @@ v_get_player <- function(no, fields) {
     ## <Request Type="GetPlayer"
     ##          No="<player number>"
     ##          Fields="<optional: list of the fields to return>" />
-    body <- minixml::xml_elem("Request", Type = "GetPlayer")
-    body <- body$update(No = no)
-    if (!missing(fields) && !is.null(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body, node_path = "//Player")
+    req <- v_request(type = "GetPlayer", no = no, fields = fields)
+    make_request(req, node_path = "//Player")
 }
 
 ## TODO https://www.fivb.org/VisSDK/VisWebService/#GetVolleyPlayersRankingList.html

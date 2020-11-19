@@ -19,9 +19,8 @@ v_get_volley_tournament_list <- function(fields = v_fields("Volleyball Tournamen
     ##     Version="<version of local list>">
     ##         <Filter /> <!-- optional: contains the filter to use -->
     ## </Request>
-    body <- minixml::xml_elem("Request", Type = "GetVolleyTournamentList")
-    body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body, node_path = "//VolleyballTournament")
+    req <- v_request(type = "GetVolleyTournamentList", fields = fields, version = version, filter = filter)
+    make_request(req, node_path = "//VolleyballTournament")
 }
 
 #' Get a volleyball tournament
@@ -42,10 +41,8 @@ v_get_volley_tournament <- function(no, fields) {
     ## <Request Type="GetVolleyTournament"
     ## No="<tournament number>">
     ##     Fields="<Optional: list of the fields to return>" />
-    body <- minixml::xml_elem("Request", Type = "GetVolleyTournament")
-    body <- body$update(No = no)
-    if (!missing(fields) && !is.null(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body, node_path = "//VolleyballTournament")
+    req <- v_request(type = "GetVolleyTournament", no = no, fields = fields)
+    make_request(req, node_path = "//VolleyballTournament")
 }
 
 #' Get the ranking of a volleyball tournament
@@ -66,8 +63,7 @@ v_get_volley_tournament_ranking <- function(notournament, fields = v_fields("Vol
     ## <Request Type="GetVolleyTournamentRanking"
     ## No="<tournament number>"
     ## Fields="<list of the fields to return>" />
-    body <- minixml::xml_elem("Request", Type = "GetVolleyTournamentRanking")
-    body <- body$update(NoTournament = notournament, Fields = paste(fields, collapse = " "))
-    make_request(body = body, node_path = "//VolleyballTournamentRanking")
+    req <- v_request(type = "GetVolleyTournamentRanking", NoTournament = notournament, fields = fields)
+    make_request(req, node_path = "//VolleyballTournamentRanking")
 }
 

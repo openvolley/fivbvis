@@ -1,8 +1,30 @@
 base_url <- "https://www.fivb.org/Vis2009/XmlRequest.asmx"
 
+first_to_upper <- function(z) paste0(toupper(substr(z, 1, 1)), substr(z, 2, nchar(z)))
+
+## internal helper function to build the XML request structure
+v_request <- function(type, fields, version, filter, old_style = FALSE, ...) {
+    body <- minixml::xml_elem("Request", Type = type)
+    dots <- list(...)
+    if (length(dots)) {
+        names(dots) <- first_to_upper(names(dots))
+        body <- do.call(body$update, dots)
+    }
+    if (!missing(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
+    if (isTRUE(old_style)) {
+        ## the old request style was
+        ## <Requests Username="xxx" Password="xxx">
+        ##   <!-- Zero or more <Request> entries -->
+        ## </Requests>
+        body <- minixml::xml_elem("Requests")$append(body)
+    }
+    body
+}
+
+
 ## return can be "parsed" (convert XML to data frame) or (probably for testing purposes) "content" (unparsed content) or "request" (the request object)
-make_request <- function(body, type = "xml", return = "parsed", node_path, cache = v_caching()) {
-    hash <- paste0(digest::digest(list(body = body, type = type)), ".rds")
+make_request <- function(request, type = "xml", return = "parsed", node_path, cache = v_caching()) {
+    hash <- paste0(digest::digest(list(request = request, type = type)), ".rds")
     cfname <- file.path(v_cache_dir(), hash)
     if (isTRUE(cache) && file.exists(cfname) && file.size(cfname) > 0) {
         cok <- FALSE
@@ -18,12 +40,12 @@ make_request <- function(body, type = "xml", return = "parsed", node_path, cache
     if (v_verbose()) {
         req_type <- NULL
         try({
-            req_type <- body$attribs$Type
-            if (is.null(req_type)) req_type <- unique(unlist(lapply(body$children, function(z) z$attribs$Type)))
+            req_type <- request$attribs$Type
+            if (is.null(req_type)) req_type <- unique(unlist(lapply(request$children, function(z) z$attribs$Type)))
         }, silent = TRUE)
         message("making ", req_type, " request")
     }
-    out <- do_make_request(body = body, type = type, return = return, node_path = node_path)
+    out <- do_make_request(request = request, type = type, return = return, node_path = node_path)
     if (isTRUE(cache) || cache %in% "refresh") {
         if (v_verbose()) message("caching to ", cfname)
         saveRDS(out, file = cfname)
@@ -31,11 +53,11 @@ make_request <- function(body, type = "xml", return = "parsed", node_path, cache
     out
 }
 
-do_make_request <- function(body, type = "xml", return, node_path) {
-    if (inherits(body, "XMLElement")) body <- as.character(body)
+do_make_request <- function(request, type = "xml", return, node_path) {
+    if (inherits(request, "XMLElement")) request <- as.character(request)
     type <- match.arg(tolower(type), c("json", "xml"))
     cf <- if (type == "json") httr::accept_json() else httr::accept_xml()
-    out <- httr::POST(url = base_url, config = cf, body = body)
+    out <- httr::POST(url = base_url, config = cf, body = request)
     if (identical(return, "response")) return(out)
     response_type <- httr::http_type(out)
     out <- httr::content(out, as = "text", encoding = "UTF-8")

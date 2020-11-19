@@ -16,10 +16,8 @@ v_get_volley_match <- function(no, fields) {
     ## <Request Type="GetVolleyMatch"
     ##      No="<match number>">
     ##      Fields="<Optional: list of the fields to return>" />
-    body <- minixml::xml_elem("Request", Type = "GetVolleyMatch")
-    body <- body$update(No = no)
-    if (!missing(fields) && !is.null(fields) && length(fields)) body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body, node_path = "//VolleyballMatch")
+    req <- v_request(type = "GetVolleyMatch", no = no, fields = fields)
+    make_request(req, node_path = "//VolleyballMatch")
 }
 
 
@@ -44,10 +42,6 @@ v_get_volley_match_list <- function(fields = v_fields("Volleyball Match"), versi
     ##          Version="<version of local list>">
     ##   <Filter /> <!-- optional: contains the filter to use -->
     ## </Request>
-    body <- minixml::xml_elem("Request", Type = "GetVolleyMatchList")
-    body <- body$update(Fields = paste(fields, collapse = " "))
-    make_request(body = body, node_path = "//VolleyballMatches")
+    req <- v_request(type = "GetVolleyMatchList", fields = fields, version = version, filter = filter)
+    make_request(req, node_path = "//VolleyballMatches")
 }
-
-
-
