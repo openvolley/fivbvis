@@ -55,6 +55,7 @@ v_get_beach_tournament_list <- function(fields = v_fields("Beach Tournament"), v
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachOlympicSelectionRanking.html}
 #' @param gender character: gender of the olympic ranking selection
 #' @param gamesyear integer: year to return ranking selection. if this parameter is not specified, the web service will return the ranking for the latest olympic games with a ranking.
+#' @param fields character: fields to return
 #'
 #' @return A data.frame
 #'
