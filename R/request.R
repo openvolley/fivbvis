@@ -27,7 +27,7 @@ v_request <- function(type, fields, version, filter, old_style = FALSE, ...) {
 
 
 ## return can be "parsed" (convert XML to data frame) or (probably for testing purposes) "content" (unparsed content) or "request" (the request object)
-make_request <- function(request, type = "xml", return = "parsed", node_path, cache = v_caching()) {
+make_request <- function(request, type = "xml", return = "parsed", node_path, convert_cols = TRUE, as_tibble = TRUE, cache = v_caching()) {
     hash <- paste0(digest::digest(list(request = request, type = type)), ".rds")
     cfname <- file.path(v_cache_dir(), hash)
     if (isTRUE(cache) && file.exists(cfname) && file.size(cfname) > 0) {
@@ -54,7 +54,12 @@ make_request <- function(request, type = "xml", return = "parsed", node_path, ca
         if (v_verbose()) message("caching to ", cfname)
         saveRDS(out, file = cfname)
     }
-    out
+    if (isTRUE(convert_cols)) {
+        ## all columns will be character at this point
+        ## attempt to convert columns into appropriate types
+        try(out <- data.table::fread(text = capture.output(write.csv(out, row.names = FALSE)), data.table = FALSE), silent = TRUE)
+    }
+    if (isTRUE(as_tibble)) tibble::as_tibble(out) else out
 }
 
 do_make_request <- function(request, type = "xml", return, node_path) {

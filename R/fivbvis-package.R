@@ -5,5 +5,5 @@
 #' @name fivbvis
 #' @docType package
 #' @importFrom assertthat assert_that is.flag is.string
-#' @importFrom utils download.file
+#' @importFrom utils capture.output download.file write.csv
 NULL

@@ -290,6 +290,7 @@ v_get_beach_round_ranking <- function(no, fields = v_fields("Beach Round Ranking
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachTournamentRanking.html}
 #' @param no integer: number of the beach volleyball tournament
+#' @param fields character: fields to return
 #'
 #' @return A data.frame
 #'

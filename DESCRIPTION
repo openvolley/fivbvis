@@ -8,12 +8,14 @@ Authors@R: c(person("Ben", "Raymond", email = "ben@untan.gl", role = c("aut", "c
 Description: Client for the FIVB VIS web service.
 Imports:
     assertthat,
+    data.table,
     digest,
     httr,
     jsonlite,
     minixml,
     rappdirs,
     rvest,
+    tibble,
     xml2,
     XML
 Suggests:
