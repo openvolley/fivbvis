@@ -13,11 +13,11 @@
 #'
 #' @export
 v_get_beach_tournament <- function(no, fields) {
-  ## <Request Type="GetBeachTournament"
-  ##      No="<tournament number>">
-  ##      Fields="<Optional: list of the fields to return>" />
-  req <- v_request(type = "GetBeachTournament", no = no, fields = fields)
-  make_request(req, node_path = "//BeachTournament")
+    ## <Request Type="GetBeachTournament"
+    ##      No="<tournament number>">
+    ##      Fields="<Optional: list of the fields to return>" />
+    req <- v_request(type = "GetBeachTournament", no = no, fields = fields)
+    make_request(req, node_path = "//BeachTournament")
 }
 
 
@@ -65,14 +65,15 @@ v_get_beach_tournament_list <- function(fields = v_fields("Beach Tournament"), v
 #'
 #' @export
 v_get_beach_olympic_selection_ranking <- function(gender, gamesyear, fields = v_fields("Beach Olympic Selection Ranking")) {
-  ## <Request Type="GetBeachOlympicSelectionRanking"
-  ## Gender="<gender>"
-  ## GamesYear="<year of the Olympic Games>"
-  ## OnlySelected="<boolean value>"
-  ## ReferenceDate="<ranking reference data>"
-  ## Fields="list of the fields to return" />
-  req <- v_request(type = "GetBeachOlympicSelectionRanking", Gender = gender, GamesYear = gamesyear, fields = fields)
-  make_request(req, node_path = "//BeachOlympicSelectionRankingEntry")
+    if (missing(gamesyear)) gamesyear <- NULL
+    ## <Request Type="GetBeachOlympicSelectionRanking"
+    ## Gender="<gender>"
+    ## GamesYear="<year of the Olympic Games>"
+    ## OnlySelected="<boolean value>"
+    ## ReferenceDate="<ranking reference data>"
+    ## Fields="list of the fields to return" />
+    req <- v_request(type = "GetBeachOlympicSelectionRanking", Gender = gender, GamesYear = gamesyear, fields = fields, old_style = TRUE)
+    make_request(req, node_path = "//BeachOlympicSelectionRankingEntry")
 }
 
 
@@ -94,13 +95,15 @@ v_get_beach_olympic_selection_ranking <- function(gender, gamesyear, fields = v_
 #'
 #' @export
 v_get_beach_world_tour_ranking <- function(gender, number, referencedate, fields = v_fields("Beach World Tour Ranking")) {
-  ## <Request Type="GetBeachWorldTourRanking"
-  ## Gender="<gender>"
-  ## Number="<number of entries to return>"
-  ## ReferenceDate="<ranking reference data>
-  ## Fields="list of the fields to return" />
-  req <- v_request(type = "GetBeachWorldTourRanking", Gender = gender, Number = number, ReferenceDate = referencedate, fields = fields)
-  make_request(req, node_path = "//BeachWorldTourRankingEntry")
+    if (missing(number)) number <- NULL
+    if (missing(referencedate)) referencedate <- NULL
+    ## <Request Type="GetBeachWorldTourRanking"
+    ## Gender="<gender>"
+    ## Number="<number of entries to return>"
+    ## ReferenceDate="<ranking reference data>
+    ## Fields="list of the fields to return" />
+    req <- v_request(type = "GetBeachWorldTourRanking", Gender = gender, Number = number, ReferenceDate = referencedate, fields = fields, old_style = TRUE)
+    make_request(req, node_path = "//BeachWorldTourRankingEntry")
 }
 
 ## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachMatch.html
