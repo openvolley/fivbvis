@@ -6,11 +6,16 @@
 \usage{
 v_get_beach_tournament_ranking(
   no,
+  phase,
   fields = v_fields("Beach Tournament Ranking")
 )
 }
 \arguments{
 \item{no}{integer: number of the beach volleyball tournament}
+
+\item{phase}{string: phase for which to return the ranking ("Qualification" or "MainDraw")}
+
+\item{fields}{character: fields to return}
 }
 \value{
 A data.frame

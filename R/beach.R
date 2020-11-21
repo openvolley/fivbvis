@@ -55,6 +55,8 @@ v_get_beach_tournament_list <- function(fields = v_fields("Beach Tournament"), v
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachOlympicSelectionRanking.html}
 #' @param gender character: gender of the olympic ranking selection
 #' @param gamesyear integer: year to return ranking selection. if this parameter is not specified, the web service will return the ranking for the latest olympic games with a ranking.
+#' @param onlyselected logical: the selection status of the returned teams. If \code{NULL} or not specified, the resulting list will contain both selected and not-selected teams. If \code{FALSE}, the resulting list will contain only non-selected teams. If \code{TRUE}, the resulting list will contain only selected teams
+#' @param referencedate Date: reference date of the ranking: when the ranking has been calculated. If there is no Olympic Games selection ranking calculated at the specified date, the returned ranking will be empty. If this parameter is not specified, the web service will return the ranking for the latest reference date
 #' @param fields character: fields to return
 #'
 #' @return A data.frame
@@ -65,15 +67,18 @@ v_get_beach_tournament_list <- function(fields = v_fields("Beach Tournament"), v
 #' }
 #'
 #' @export
-v_get_beach_olympic_selection_ranking <- function(gender, gamesyear, fields = v_fields("Beach Olympic Selection Ranking")) {
+v_get_beach_olympic_selection_ranking <- function(gender, gamesyear, onlyselected, referencedate, fields = v_fields("Beach Olympic Selection Ranking")) {
     if (missing(gamesyear)) gamesyear <- NULL
+    if (missing(onlyselected)) onlyselected <- NULL
+    if (missing(referencedate)) referencedate <- NULL
+    if (inherits(referencedate, "Date")) referencedate <- format(referencedate, "%Y-%m-%d")
     ## <Request Type="GetBeachOlympicSelectionRanking"
     ## Gender="<gender>"
     ## GamesYear="<year of the Olympic Games>"
     ## OnlySelected="<boolean value>"
     ## ReferenceDate="<ranking reference data>"
     ## Fields="list of the fields to return" />
-    req <- v_request(type = "GetBeachOlympicSelectionRanking", Gender = gender, GamesYear = gamesyear, fields = fields, old_style = TRUE)
+    req <- v_request(type = "GetBeachOlympicSelectionRanking", Gender = gender, GamesYear = gamesyear, OnlySelected = onlyselected, ReferenceDate = referencedate, fields = fields, old_style = TRUE)
     make_request(req, node_path = "//BeachOlympicSelectionRankingEntry")
 }
 
@@ -280,7 +285,7 @@ v_get_beach_round_ranking <- function(no, fields = v_fields("Beach Round Ranking
   ## <Request Type="GetBeachRoundRanking"
   ##  No="<round number>"
   ##  Fields="<list of the fields to return>" />
-  req <- v_request(type = "GetBeachRoundRanking", no = no, fields = fields)
+  req <- v_request(type = "GetBeachRoundRanking", no = no, fields = fields, old_style = TRUE)
   make_request(req, node_path = "//BeachRoundRankingEntry")
 }
 
@@ -290,6 +295,7 @@ v_get_beach_round_ranking <- function(no, fields = v_fields("Beach Round Ranking
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachTournamentRanking.html}
 #' @param no integer: number of the beach volleyball tournament
+#' @param phase string: phase for which to return the ranking ("Qualification" or "MainDraw")
 #' @param fields character: fields to return
 #'
 #' @return A data.frame
@@ -300,11 +306,12 @@ v_get_beach_round_ranking <- function(no, fields = v_fields("Beach Round Ranking
 #' }
 #'
 #' @export
-v_get_beach_tournament_ranking <- function(no, fields = v_fields("Beach Tournament Ranking")) {
-  ## <Request Type="GetBeachTournamentRanking"
-  ##   No="<tournament number>"
-  ##   Phase="<phase>">
-  ##   Fields="<list of the fields to return>" />
-  req <- v_request(type = "GetBeachTournamentRanking", no = no, fields = fields)
-  make_request(req, node_path = "//BeachTournamentRankingEntry")
+v_get_beach_tournament_ranking <- function(no, phase, fields = v_fields("Beach Tournament Ranking")) {
+    if (missing(phase)) phase <- NULL
+    ## <Request Type="GetBeachTournamentRanking"
+    ##   No="<tournament number>"
+    ##   Phase="<phase>">
+    ##   Fields="<list of the fields to return>" />
+    req <- v_request(type = "GetBeachTournamentRanking", no = no, phase = phase, fields = fields, old_style = TRUE)
+    make_request(req, node_path = "//BeachTournamentRankingEntry")
 }

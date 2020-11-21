@@ -7,6 +7,8 @@
 v_get_beach_olympic_selection_ranking(
   gender,
   gamesyear,
+  onlyselected,
+  referencedate,
   fields = v_fields("Beach Olympic Selection Ranking")
 )
 }
@@ -14,6 +16,10 @@ v_get_beach_olympic_selection_ranking(
 \item{gender}{character: gender of the olympic ranking selection}
 
 \item{gamesyear}{integer: year to return ranking selection. if this parameter is not specified, the web service will return the ranking for the latest olympic games with a ranking.}
+
+\item{onlyselected}{logical: the selection status of the returned teams. If \code{NULL} or not specified, the resulting list will contain both selected and not-selected teams. If \code{FALSE}, the resulting list will contain only non-selected teams. If \code{TRUE}, the resulting list will contain only selected teams}
+
+\item{referencedate}{Date: reference date of the ranking: when the ranking has been calculated. If there is no Olympic Games selection ranking calculated at the specified date, the returned ranking will be empty. If this parameter is not specified, the web service will return the ranking for the latest reference date}
 
 \item{fields}{character: fields to return}
 }
