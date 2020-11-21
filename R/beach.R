@@ -79,7 +79,7 @@ v_get_beach_olympic_selection_ranking <- function(gender, gamesyear, fields = v_
 
 
 
-#' Request to get a beach volleyball Olympic Selection ranking
+#' Request to get a beach volleyball World Tour ranking
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachWorldTourRanking.html}
 #' @param gender character: gender of the teams to retrieve the ranking for
@@ -107,11 +107,203 @@ v_get_beach_world_tour_ranking <- function(gender, number, referencedate, fields
     make_request(req, node_path = "//BeachWorldTourRankingEntry")
 }
 
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachMatch.html
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachMatchList.html
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachRound.html
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachRoundList.html
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachRoundRanking.html
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachTeam.html
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachTeamList.html
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetBeachTournamentRanking.html
+
+
+#' Get a beach volleyball match
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachMatch.html}
+#' @param no integer: match number
+#' @param fields character: fields to return
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   v_get_beach_match(15592)
+#' }
+#'
+#' @export
+v_get_beach_match <- function(no, fields) {
+  ## <Request Type="GetBeachMatch"
+  ##      No="<match number>">
+  ##      Fields="<Optional: list of the fields to return>" />
+  req <- v_request(type = "GetBeachMatch", no = no, fields = fields)
+  make_request(req, node_path = "//BeachMatch")
+}
+
+
+
+#' Get a list of beach volleyball matches
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachMatchList.html}
+#' @param fields character: fields to return
+#' @param version integer: version of local list (currently ignored)
+#' @param filter list: (currently ignored)
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   v_get_beach_match_list()
+#' }
+#'
+#' @export
+v_get_beach_match_list <- function(fields = v_fields("Beach Match"), version, filter) {
+  ## <Request Type="GetBeachMatchList"
+  ##          Fields="<list of the fields to return>">
+  ##          Version="<version of local list>">
+  ##   <Filter /> <!-- optional: contains the filter to use -->
+  ## </Request>
+  req <- v_request(type = "GetBeachMatchList", fields = fields, version = version, filter = filter)
+  make_request(req, node_path = "//BeachMatch")
+}
+
+
+
+#' Get a beach volleyball round
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachRound.html}
+#' @param no integer: round number
+#' @param fields character: fields to return
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   v_get_beach_round(3054)
+#' }
+#'
+#' @export
+v_get_beach_round <- function(no, fields) {
+  ## <Request Type="GetBeachRound"
+  ##      No="<round number>">
+  ##      Fields="<Optional: list of the fields to return>" />
+  req <- v_request(type = "GetBeachRound", no = no, fields = fields)
+  make_request(req, node_path = "//BeachRound")
+}
+
+
+
+
+#' Get a list of beach volleyball rounds
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachRoundList.html}
+#' @param fields character: fields to return
+#' @param version integer: version of local list (currently ignored)
+#' @param filter list: (currently ignored)
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   v_get_beach_round_list()
+#' }
+#'
+#' @export
+v_get_beach_round_list <- function(fields = v_fields("Beach Round"), version, filter) {
+  ## <Request Type="GetBeachRoundList"
+  ##          Fields="<list of the fields to return>">
+  ##          Version="<version of local list>">
+  ##   <Filter /> <!-- optional: contains the filter to use -->
+  ## </Request>
+  req <- v_request(type = "GetBeachRoundList", fields = fields, version = version, filter = filter)
+  make_request(req, node_path = "//BeachRound")
+}
+
+
+
+#' Get a beach volleyball team
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachTeam.html}
+#' @param no integer: team number
+#' @param fields character: fields to return
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   v_get_beach_team(375442)
+#' }
+#'
+#' @export
+v_get_beach_team <- function(no, fields) {
+  ## <Request Type="GetBeachTeam"
+  ##      No="<team number>">
+  ##      Fields="<Optional: list of the fields to return>" />
+  req <- v_request(type = "GetBeachTeam", no = no, fields = fields)
+  make_request(req, node_path = "//BeachTeam")
+}
+
+
+
+#' Get a list of beach volleyball teams
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachTeamList.html}
+#' @param fields character: fields to return
+#' @param version integer: version of local list (currently ignored)
+#' @param filter list: (currently ignored)
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   v_get_beach_team_list()
+#' }
+#'
+#' @export
+v_get_beach_team_list <- function(fields = v_fields("Beach Team"), version, filter) {
+  ## <Request Type="GetBeachTeamList"
+  ##          Fields="<list of the fields to return>">
+  ##          Version="<version of local list>">
+  ##   <Filter /> <!-- optional: contains the filter to use -->
+  ## </Request>
+  req <- v_request(type = "GetBeachTeamList", fields = fields, version = version, filter = filter)
+  make_request(req, node_path = "//BeachTeam")
+}
+
+
+
+#' Request to get the ranking of a beach volleyball round
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachRoundRanking.html}
+#' @param no integer: number of the beach volleyball round
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   v_get_beach_round_ranking(980)
+#' }
+#'
+#' @export
+v_get_beach_round_ranking <- function(no, fields = v_fields("Beach Round Ranking")) {
+  ## <Request Type="GetBeachRoundRanking"
+  ##  No="<round number>"
+  ##  Fields="<list of the fields to return>" />
+  req <- v_request(type = "GetBeachRoundRanking", no = no, fields = fields)
+  make_request(req, node_path = "//BeachRoundRankingEntry")
+}
+
+
+
+#' Request to get the ranking of a beach volleyball tournament
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachTournamentRanking.html}
+#' @param no integer: number of the beach volleyball tournament
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   v_get_beach_tournament_ranking(503)
+#' }
+#'
+#' @export
+v_get_beach_tournament_ranking <- function(no, fields = v_fields("Beach Tournament Ranking")) {
+  ## <Request Type="GetBeachTournamentRanking"
+  ##   No="<tournament number>"
+  ##   Phase="<phase>">
+  ##   Fields="<list of the fields to return>" />
+  req <- v_request(type = "GetBeachTournamentRanking", no = no, fields = fields)
+  make_request(req, node_path = "//BeachTournamentRankingEntry")
+}
