@@ -9,7 +9,7 @@ first_to_upper <- function(z) paste0(toupper(substr(z, 1, 1)), substr(z, 2, ncha
 ##  parameters like NoTournament (i.e. the call must be like `v_request(xyz, NoTournament = 123)` )
 v_request <- function(type, fields, version, filter, old_style = FALSE, ...) {
     body <- minixml::xml_elem("Request", Type = type)
-    dots <- list(...)
+    dots <- Filter(Negate(is.null), list(...))
     if (length(dots)) {
         names(dots) <- first_to_upper(names(dots))
         body <- do.call(body$update, dots)
