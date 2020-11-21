@@ -2,7 +2,7 @@
 % Please edit documentation in R/beach.R
 \name{v_get_beach_world_tour_ranking}
 \alias{v_get_beach_world_tour_ranking}
-\title{Request to get a beach volleyball Olympic Selection ranking}
+\title{Request to get beach volleyball World Tour rankings}
 \usage{
 v_get_beach_world_tour_ranking(
   gender,
