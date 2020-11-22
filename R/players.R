@@ -42,7 +42,9 @@ v_get_volley_player <- function(no, fields) {
     ##      No="<player number>">
     ##      Fields="<Optional: list of the fields to return>" />
     req <- v_request(type = "GetVolleyPlayer", no = no, fields = fields)
-    make_request(req, node_path = "//VolleyballPlayer")
+    out <- make_request(req, node_path = "//VolleyballPlayer")
+    if ("Position" %in% names(out)) out$Position <- dmapvalues(out$Position, v_schema("Player Volley Position")$from, v_schema("Player Volley Position")$to)
+    out
 }
 
 #' Get a player
@@ -64,17 +66,10 @@ v_get_player <- function(no, fields) {
     ##          No="<player number>"
     ##          Fields="<optional: list of the fields to return>" />
     req <- v_request(type = "GetPlayer", no = no, fields = fields)
-    make_request(req, node_path = "//Player")
+    out <- make_request(req, node_path = "//Player")
+    if ("VolleyPosition" %in% names(out)) out$VolleyPosition <- dmapvalues(out$VolleyPosition, v_schema("Player Volley Position")$from, v_schema("Player Volley Position")$to)
+    if ("BeachPosition" %in% names(out)) out$BeachPosition <- dmapvalues(out$BeachPosition, v_schema("Player Beach Position")$from, v_schema("Player Beach Position")$to)
+    out
 }
 
 ## TODO https://www.fivb.org/VisSDK/VisWebService/#GetVolleyPlayersRankingList.html
-
-## Player Volley Position
-## Value Name Description
-## 0 Unknown Unknown.
-## 1 Setter Setter.
-## 2 WingSpiker Wing spiker.
-## 3 MiddleBlocker Middle blocker.
-## 4 Libero Libero.
-## 5 Universal Universal.
-## 6 OppositeSpiker Opposite spiker.

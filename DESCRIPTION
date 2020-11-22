@@ -1,6 +1,6 @@
 Package: fivbvis
 Title: Client for the FIVB VIS Web Service \url{https://www.fivb.org/VisSDK/VisWebService/}
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: c(person("Ben", "Raymond", email = "ben@untan.gl", role = c("aut", "cre")),
              person("Adrien", "Ickowicz", role = "aut"),
              person("Tyler", "Widdison", role = "aut"),
@@ -12,6 +12,7 @@ Imports:
     digest,
     httr,
     jsonlite,
+    methods,
     minixml,
     rappdirs,
     rvest,
