@@ -272,6 +272,7 @@ v_get_beach_team_list <- function(fields = v_fields("Beach Team"), version, filt
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetBeachRoundRanking.html}
 #' @param no integer: number of the beach volleyball round
+#' @param fields character: fields to return
 #'
 #' @return A data.frame
 #'

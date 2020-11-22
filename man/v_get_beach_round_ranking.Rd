@@ -8,6 +8,8 @@ v_get_beach_round_ranking(no, fields = v_fields("Beach Round Ranking"))
 }
 \arguments{
 \item{no}{integer: number of the beach volleyball round}
+
+\item{fields}{character: fields to return}
 }
 \value{
 A data.frame
