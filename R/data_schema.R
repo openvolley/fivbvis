@@ -14,7 +14,6 @@ v_schema <- function(type) {
                                        8L,	"FederationSpot",	"This is not a real team, but an indication that this spot is reserved for a team from a federation selection round",
                                        9L,	"ConfederationSpot",	"This is not a real team, but an indication that this spot is reserved for a team from a confederation selection round",
                                        10L,	"OrganizerVacancy",	"The team has been selected because its federation organizes a tournament in the World Tour"),
-           
            ## https://www.fivb.org/VisSDK/VisWebService/BeachTeamStatus.html
            "Player Beach Team Status" = tribble(~from, ~to, ~descrption,
                                                 0L,	"Registered",	"Registered",
