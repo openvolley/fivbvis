@@ -14,6 +14,11 @@ v_remap <- function(x, col, schema, from = "from", to = "to") {
 ## define data schema so that values can be remapped
 v_schema <- function(type) {
     switch(type,
+           ## https://www.fivb.org/VisSDK/VisWebService/#EventType.html
+           "Event Type" = tribble(~from, ~to, ~descrption,
+                                  1L,"Courses","One or more courses in a session",
+                                  2L,"Meeting", "Meeting",
+                                  3L,"Sport", "Sport Event"),
            ## https://www.fivb.org/VisSDK/VisWebService/BeachTeamType.html
            "Beach Team Type" = tribble(~from, ~to, ~description,
                                        0L, "Normal", "Normal",
