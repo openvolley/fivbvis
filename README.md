@@ -37,30 +37,46 @@ Get details for a specific tournament:
 
 ``` r
 v_get_volley_tournament(1)
-#>   Actions BuyTicketsUrl            City     Code ContainsLiveComments
-#> 1    1023               Algiers & Blida BU192005                    0
+#> # A tibble: 1 x 56
+#>   Actions BuyTicketsUrl City            Code     ContainsLiveComments
+#>     <int> <lgl>         <chr>           <chr>                   <int>
+#> 1    1023 NA            Algiers & Blida BU192005                    0
 #>   ContainsLiveScores ContainsMatches ContainsMatchResults ContainsNews
+#>                <int>           <int>                <int>        <int>
 #> 1                  0               0                    0            0
 #>   ContainsPictures ContainsPlayByPlay ContainsPlayers ContainsRanking
+#>              <int>              <int>           <int>           <int>
 #> 1                0                  0               0               0
 #>   ContainsStatistics ContainsTeams ContainsVideos ContainsVideoTracking
+#>                <int>         <int>          <int>                 <int>
 #> 1                  0             0              0                     0
 #>   CountryCode CountryName DeadlineO2 DeadlineO2A DeadlineO2bis
-#> 1          DZ     Algeria 2005-05-20                2005-08-22
-#>   DefaultPlayersRanking    EndDate EventLogos Gender IsFreeEntrance
-#> 1                       2005-09-01                 0              0
-#>   IsVisManaged Logos MaxNbPlayersO2 MaxNbPlayersO2A MaxNbPlayersO2bis
-#> 1            0                   18               0                12
-#>   MaxNbTeamOfficialsOnBench MaxNbTeams                                    Name
+#>   <chr>       <chr>       <date>     <lgl>       <date>       
+#> 1 DZ          Algeria     2005-05-20 NA          2005-08-22   
+#>   DefaultPlayersRanking EndDate    EventLogos Gender IsFreeEntrance IsVisManaged
+#>   <lgl>                 <date>     <lgl>       <int>          <int>        <int>
+#> 1 NA                    2005-09-01 NA              0              0            0
+#>   Logos MaxNbPlayersO2 MaxNbPlayersO2A MaxNbPlayersO2bis
+#>   <lgl>          <int>           <int>             <int>
+#> 1 NA                18               0                12
+#>   MaxNbTeamOfficialsOnBench MaxNbTeams Name                                   
+#>                       <int>      <int> <chr>                                  
 #> 1                         5          0 Youth Boys' U19 World Championship 2005
-#>   No NoArticlePresentation NoConfederation NoEvent NoImageLogo NoImageFivbLogo
-#> 1  1                                                                          
-#>   NoImagePublicity OrganizerCode OrganizerType PlayerDisplayMethod
-#> 1                                            0                   1
-#>   PublishOnMsdp Season ShortName                         ShortNameOrName
-#> 1             0   2005           Youth Boys' U19 World Championship 2005
-#>    StartDate Status TeamType TournamentLogos Type WebSite Version
-#> 1 2005-08-24      4        1                    1               1
+#>      No NoArticlePresentation NoConfederation NoEvent NoImageLogo
+#>   <int> <lgl>                 <lgl>           <lgl>   <lgl>      
+#> 1     1 NA                    NA              NA      NA         
+#>   NoImageFivbLogo NoImagePublicity OrganizerCode OrganizerType
+#>   <lgl>           <lgl>            <lgl>                 <int>
+#> 1 NA              NA               NA                        0
+#>   PlayerDisplayMethod PublishOnMsdp Season ShortName
+#>                 <int>         <int>  <int> <lgl>    
+#> 1                   1             0   2005 NA       
+#>   ShortNameOrName                         StartDate  Status TeamType
+#>   <chr>                                   <date>      <int>    <int>
+#> 1 Youth Boys' U19 World Championship 2005 2005-08-24      4        1
+#>   TournamentLogos  Type WebSite Version
+#>   <lgl>           <int> <lgl>     <int>
+#> 1 NA                  1 NA            1
 ```
 
 By default, results are cached in a per-session cache, so if we make the
@@ -70,7 +86,7 @@ re-downloading:
 ``` r
 v_options(verbose = TRUE)
 v_get_volley_tournament(1)
-#> using cached file /tmp/Rtmp8htd1P/file4670108a0f4f/c26d60adb44917d5c1cb8bf2ade4af1b.rds
+#> using cached file /tmp/Rtmp8htd1P/file467077ff974c/4a69e890376e4ee5b0f67be41ee86963.rds
 #>   Actions BuyTicketsUrl            City     Code ContainsLiveComments
 #> 1    1023               Algiers & Blida BU192005                    0
 #>   ContainsLiveScores ContainsMatches ContainsMatchResults ContainsNews
