@@ -11,6 +11,8 @@
 #' @export
 v_fields <- function(type) {
     switch(type,
+           "Event" = c('AccreditationEndDate', 'AccreditationStartDate', 'Code', 'CountryCode', 'EndDate', 'ExpensesCurrencyCode', 'HasBeachTournament', 'HasMenTournament', 'HasSnowTournament', 'HasVolleyTournament', 'HasWomenTournament', 'IsVisManaged', 'Location', 'Name', 'No', 'NoLogoImage', 'NoParentEvent', 'OrganizerCode', 'OrganizerType', 'StartDate', 'Status', 'Type', 'Version'), #'InfoFederation', 'InfoFormat', 'InfoHotels', 'InfoLocation', 'InfoMedia', 'InfoOrganizer', 'InfoPresentation', 'InfoSchedule', 'InfoUseful', 'Checklist', 'Content','AuxiliaryPersons','Logos'
+           
            "Beach Tournament Ranking" = c('EarnedPointsTeam', 'EarningsTotalTeam', 'Position', 'Rank', 'TeamFederationCode', 'TeamName'),
            
            "Beach Round Ranking" = c('MatchesLost', 'MatchesWon', 'MatchPoints', 'Position', 'Rank', 'TeamFederationCode', 'TeamName'),
