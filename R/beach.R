@@ -18,13 +18,12 @@ v_get_beach_tournament <- function(no, fields) {
     ##      Fields="<Optional: list of the fields to return>" />
     req <- v_request(type = "GetBeachTournament", no = no, fields = fields)
     out <- make_request(req, node_path = "//BeachTournament")
-    if ("Type" %in% names(out)) out$Type <- dmapvalues(out$Type, v_schema("Beach Tournament Type")$from, v_schema("Beach Tournament Type")$to)
-    if ("DefaultMatchFormat" %in% names(out)) out$DefaultMatchFormat <- dmapvalues(out$DefaultMatchFormat, v_schema("Beach Match Format")$from, v_schema("Beach Match Format")$to)
-    if ("DispatchStatus" %in% names(out)) out$DispatchStatus <- dmapvalues(out$DispatchStatus, v_schema("Beach Tournament Dispatch Status")$from, v_schema("Beach Tournament Dispatch Status")$to)
-    if ("Gender" %in% names(out)) out$Gender <- dmapvalues(out$Gender, v_schema("Event Gender")$from, v_schema("Event Gender")$to)
-    if ("OrganizeType" %in% names(out)) out$OrganizeType <- dmapvalues(out$OrganizeType, v_schema("Organizer Type")$from, v_schema("Organizer Type")$to)
-    if ("Status" %in% names(out)) out$Status <- dmapvalues(out$Status, v_schema("Beach Tournament Status")$from, v_schema("Beach Tournament Status")$to)
-    out
+    out <- v_remap(out, col = "Type", schema = "Beach Tournament Type")
+    out <- v_remap(out, col = "DefaultMatchFormat", schema = "Beach Match Format")
+    out <- v_remap(out, col = "DispatchStatus", schema = "Beach Tournament Dispatch Status")
+    out <- v_remap(out, col = "Gender", schema = "Event Gender")
+    out <- v_remap(out, col = "OrganizeType", schema = "Organizer Type")
+    v_remap(out, col = "Status", schema = "Beach Tournament Status")
 }
 
 
@@ -84,8 +83,7 @@ v_get_beach_olympic_selection_ranking <- function(gender, gamesyear, onlyselecte
     ## Fields="list of the fields to return" />
     req <- v_request(type = "GetBeachOlympicSelectionRanking", Gender = gender, GamesYear = gamesyear, OnlySelected = onlyselected, ReferenceDate = referencedate, fields = fields, old_style = TRUE)
     out <- make_request(req, node_path = "//BeachOlympicSelectionRankingEntry")
-    if ("Status" %in% names(out)) out$Status <- dmapvalues(out$Status, v_schema("Beach Olympic Team Status")$from, v_schema("Beach Olympic Team Status")$to)
-    out
+    v_remap(out, col = "Status", schema = "Beach Olympic Team Status")
 }
 
 
@@ -135,19 +133,18 @@ v_get_beach_world_tour_ranking <- function(gender, number, referencedate, fields
 #'
 #' @export
 v_get_beach_match <- function(no, fields) {
-  ## <Request Type="GetBeachMatch"
-  ##      No="<match number>">
-  ##      Fields="<Optional: list of the fields to return>" />
-  req <- v_request(type = "GetBeachMatch", no = no, fields = fields)
-  out <- make_request(req, node_path = "//BeachMatch")
-  if ("AcquisitionMethod" %in% names(out)) out$AcquisitionMethod <- dmapvalues(out$AcquisitionMethod, v_schema("Beach Match Acquisition Method")$from, v_schema("Beach Match Acquisition Method")$to)
-  if ("Format" %in% names(out)) out$Format <- dmapvalues(out$Format, v_schema("Beach Match Format")$from, v_schema("Beach Match Format")$to)
-  if ("ResultType" %in% names(out)) out$ResultType <- dmapvalues(out$ResultType, v_schema("Beach Match Result Type")$from, v_schema("Beach Match Result Type")$to)
-  if ("RoundPhase" %in% names(out)) out$RoundPhase <- dmapvalues(out$RoundPhase, v_schema("Beach Match Round Phase")$from, v_schema("Beach Match Round Phase")$to)
-  if ("Status" %in% names(out)) out$Status <- dmapvalues(out$Status, v_schema("Beach Match Status")$from, v_schema("Beach Match Status")$to)
-  if ("TournamentGender" %in% names(out)) out$TournamentGender <- dmapvalues(out$TournamentGender, v_schema("Event Gender")$from, v_schema("Event Gender")$to)
-  if ("TournamentType" %in% names(out)) out$TournamentType <- dmapvalues(out$TournamentType, v_schema("Beach Tournament Type")$from, v_schema("Beach Tournament Type")$to)
-  out
+    ## <Request Type="GetBeachMatch"
+    ##      No="<match number>">
+    ##      Fields="<Optional: list of the fields to return>" />
+    req <- v_request(type = "GetBeachMatch", no = no, fields = fields)
+    out <- make_request(req, node_path = "//BeachMatch")
+    out <- v_remap(out, col = "AcquisitionMethod", schema = "Beach Match Acquisition Method")
+    out <- v_remap(out, col = "Format", schema = "Beach Match Format")
+    out <- v_remap(out, col = "ResultType", schema = "Beach Match Result Type")
+    out <- v_remap(out, col = "RoundPhase", schema = "Beach Match Round Phase")
+    out <- v_remap(out, col = "Status", schema = "Beach Match Status")
+    out <- v_remap(out, col = "TournamentGender", schema = "Event Gender")
+    v_remap(out, col = "TournamentType", schema = "Beach Tournament Type")
 }
 
 
@@ -194,13 +191,12 @@ v_get_beach_match_list <- function(fields = v_fields("Beach Match"), version, fi
 #'
 #' @export
 v_get_beach_round <- function(no, fields) {
-  ## <Request Type="GetBeachRound"
-  ##      No="<round number>">
-  ##      Fields="<Optional: list of the fields to return>" />
-  req <- v_request(type = "GetBeachRound", no = no, fields = fields)
-  out <- make_request(req, node_path = "//BeachRound")
-  if ("Phase" %in% names(out)) out$Phase <- dmapvalues(out$Phase, v_schema("Beach Round Phase")$from, v_schema("Beach Round Phase")$to)
-  out
+    ## <Request Type="GetBeachRound"
+    ##      No="<round number>">
+    ##      Fields="<Optional: list of the fields to return>" />
+    req <- v_request(type = "GetBeachRound", no = no, fields = fields)
+    out <- make_request(req, node_path = "//BeachRound")
+    v_remap(out, col = "Phase", schema = "Beach Round Phase")
 }
 
 
@@ -248,18 +244,17 @@ v_get_beach_round_list <- function(fields = v_fields("Beach Round"), version, fi
 #'
 #' @export
 v_get_beach_team <- function(no, fields) {
-  ## <Request Type="GetBeachTeam"
-  ##      No="<team number>">
-  ##      Fields="<Optional: list of the fields to return>" />
-  req <- v_request(type = "GetBeachTeam", no = no, fields = fields)
-  out <- make_request(req, node_path = "//BeachTeam")
-  if ("Player1BeachPosition" %in% names(out)) out$Player1BeachPosition <- dmapvalues(out$Player1BeachPosition, v_schema("Player Beach Position")$from, v_schema("Player Beach Position")$to)
-  if ("Player2BeachPosition" %in% names(out)) out$Player2BeachPosition <- dmapvalues(out$Player2BeachPosition, v_schema("Player Beach Position")$from, v_schema("Player Beach Position")$to)
-  if ("Status" %in% names(out)) out$Status <- dmapvalues(out$Status, v_schema("Player Beach Team Status")$from, v_schema("Player Beach Team Status")$to)
-  if ("TournamentStatus" %in% names(out)) out$TournamentStatus <- dmapvalues(out$TournamentStatus, v_schema("Beach Tournament Status")$from, v_schema("Beach Tournament Status")$to)
-  if ("TournamentType" %in% names(out)) out$TournamentType <- dmapvalues(out$TournamentType, v_schema("Beach Tournament Type")$from, v_schema("Beach Tournament Type")$to)
-  if ("Type" %in% names(out)) out$Type <- dmapvalues(out$Type, v_schema("Beach Team Type")$from, v_schema("Beach Team Type")$to)
-  out
+    ## <Request Type="GetBeachTeam"
+    ##      No="<team number>">
+    ##      Fields="<Optional: list of the fields to return>" />
+    req <- v_request(type = "GetBeachTeam", no = no, fields = fields)
+    out <- make_request(req, node_path = "//BeachTeam")
+    out <- v_remap(out, col = "Player1BeachPosition", schema = "Player Beach Position")
+    out <- v_remap(out, col = "Player2BeachPosition", schema = "Player Beach Position")
+    out <- v_remap(out, col = "Status", schema = "Player Beach Team Status")
+    out <- v_remap(out, col = "TournamentStatus", schema = "Beach Tournament Status")
+    out <- v_remap(out, col = "TournamentType", schema = "Beach Tournament Type")
+    v_remap(out, col = "Type", schema = "Beach Team Type")
 }
 
 
