@@ -2,12 +2,12 @@
 % Please edit documentation in R/event.R
 \name{v_get_event}
 \alias{v_get_event}
-\title{Get a volleyball event}
+\title{Get an event}
 \usage{
 v_get_event(no, fields)
 }
 \arguments{
-\item{no}{integer: match number}
+\item{no}{integer: the number of event}
 
 \item{fields}{character: fields to return}
 }
@@ -15,7 +15,7 @@ v_get_event(no, fields)
 A data.frame
 }
 \description{
-Get a volleyball event
+Get an event
 }
 \examples{
 \dontrun{

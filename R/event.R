@@ -1,4 +1,4 @@
-#' Get a event
+#' Get an event
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetEvent.html}
 #' @param no integer: the number of event
@@ -23,10 +23,12 @@ v_get_event <- function(no, fields) {
 }
 
 
-#' Get a event list
+#' Get an event list
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetEventList.html}
 #' @param fields character: fields to return
+#' @param version integer: version of local list (currently ignored)
+#' @param filter list: (currently ignored)
 #'
 #' @return A data.frame
 #'

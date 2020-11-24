@@ -2,9 +2,9 @@
 % Please edit documentation in R/event.R
 \name{v_get_event_list}
 \alias{v_get_event_list}
-\title{Get a list of volleyball events}
+\title{Get an event list}
 \usage{
-v_get_beach_match_list(fields = v_fields("Event"), version, filter)
+v_get_event_list(fields = v_fields("Event"), version, filter)
 }
 \arguments{
 \item{fields}{character: fields to return}
@@ -17,7 +17,7 @@ v_get_beach_match_list(fields = v_fields("Event"), version, filter)
 A data.frame
 }
 \description{
-Get a list of volleyball events
+Get an event list
 }
 \examples{
 \dontrun{
