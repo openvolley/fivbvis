@@ -43,8 +43,7 @@ v_get_volley_player <- function(no, fields) {
     ##      Fields="<Optional: list of the fields to return>" />
     req <- v_request(type = "GetVolleyPlayer", no = no, fields = fields)
     out <- make_request(req, node_path = "//VolleyballPlayer")
-    if ("Position" %in% names(out)) out$Position <- dmapvalues(out$Position, v_schema("Player Volley Position")$from, v_schema("Player Volley Position")$to)
-    out
+    v_remap(out, col = "Position", schema = "Player Volley Position")
 }
 
 #' Get a player
@@ -67,9 +66,8 @@ v_get_player <- function(no, fields) {
     ##          Fields="<optional: list of the fields to return>" />
     req <- v_request(type = "GetPlayer", no = no, fields = fields)
     out <- make_request(req, node_path = "//Player")
-    if ("VolleyPosition" %in% names(out)) out$VolleyPosition <- dmapvalues(out$VolleyPosition, v_schema("Player Volley Position")$from, v_schema("Player Volley Position")$to)
-    if ("BeachPosition" %in% names(out)) out$BeachPosition <- dmapvalues(out$BeachPosition, v_schema("Player Beach Position")$from, v_schema("Player Beach Position")$to)
-    out
+    out <- v_remap(out, col = "VolleyPosition", schema = "Player Volley Position")
+    v_remap(out, col = "BeachPosition", schema = "Player Beach Position")
 }
 
 ## TODO https://www.fivb.org/VisSDK/VisWebService/#GetVolleyPlayersRankingList.html

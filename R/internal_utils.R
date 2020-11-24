@@ -14,3 +14,4 @@ dmapvalues <- function(x, from, to, .default = NA, ...) {
     unname(map[x])
 }
 ## str(dmapvalues(10:0, 0:5, letters[1:6]))
+## see also v_remap
