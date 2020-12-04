@@ -15,18 +15,17 @@
 #'
 #' @export
 v_get_press_release_list <- function(no, startindex = 1, filter, fields = v_fields("Press Release")) {
-  ## <Request Type="GetPressReleaseList"
-  ##          Number="10"
-  ##          StartIndex="11"
-  ##          Fields="<list of the fields to return>">
-  ##      <Filter /> <!-- Optional: contains the filter to use -->
-  ##      </Request>
-  req <- v_request(type = "GetPressReleaseList", no = no, startindex = startindex, fields = fields, filter = filter, old_style = TRUE)
+    ## <Request Type="GetPressReleaseList"
+    ##          Number="10"
+    ##          StartIndex="11"
+    ##          Fields="<list of the fields to return>">
+    ##      <Filter /> <!-- Optional: contains the filter to use -->
+    ##      </Request>
+    req <- v_request(type = "GetPressReleaseList", no = no, startindex = startindex, fields = fields, filter = filter, old_style = TRUE)
     out <- make_request(request = req, node_path = "//PressRelease")
-    return(out)
-  out <- v_remap(out, col = "Category", schema = "Press Release Category")
-  out <- v_remap(out, col = "SpecialType", schema = "Press Release Special Type")
-  v_remap(out, col = "SourceCategory", schema = "Press Release Source Category")
+    out <- v_remap(out, col = "Category", schema = "Press Release Category")
+    out <- v_remap(out, col = "SpecialType", schema = "Press Release Special Type")
+    v_remap(out, col = "SourceCategory", schema = "Press Release Source Category")
 }
 
 
@@ -46,16 +45,15 @@ v_get_press_release_list <- function(no, startindex = 1, filter, fields = v_fiel
 #'
 #' @export
 v_get_press_release_text <- function(no, language, fields = v_fields("Press Release Text")) {
-  ##  <Request Type="GetPressReleaseText"
-  ##           No="<press release number>"
-  ##           Language="<language for the text>" 
-  ##           Fields="<optional: list of the fields to return>" />
-  req <- v_request(type = "GetPressReleaseText", no = no, fields = fields, old_style = TRUE)
+    ##  <Request Type="GetPressReleaseText"
+    ##           No="<press release number>"
+    ##           Language="<language for the text>" 
+    ##           Fields="<optional: list of the fields to return>" />
+    req <- v_request(type = "GetPressReleaseText", no = no, fields = fields, old_style = TRUE)
     out <- make_request(request = req, node_path = "//PressReleaseText")
-    return(out)
-  out <- v_remap(out, col = "Category", schema = "Press Release Category")
-  out <- v_remap(out, col = "SourceCategory", schema = "Press Release Source Category")
-  v_remap(out, col = "SpecialType", schema = "Press Release Special Type")
+    out <- v_remap(out, col = "Category", schema = "Press Release Category")
+    out <- v_remap(out, col = "SourceCategory", schema = "Press Release Source Category")
+    v_remap(out, col = "SpecialType", schema = "Press Release Special Type")
 }
 
 
