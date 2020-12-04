@@ -171,7 +171,14 @@ v_get_beach_match_list <- function(fields = v_fields("Beach Match"), version, fi
   ##   <Filter /> <!-- optional: contains the filter to use -->
   ## </Request>
   req <- v_request(type = "GetBeachMatchList", fields = fields, version = version, filter = filter)
-  make_request(req, node_path = "//BeachMatch")
+  out <- make_request(req, node_path = "//BeachMatch")
+  out <- v_remap(out, col = "AcquisitionMethod", schema = "Beach Match Acquisition Method")
+  out <- v_remap(out, col = "Format", schema = "Beach Match Format")
+  out <- v_remap(out, col = "ResultType", schema = "Beach Match Result Type")
+  out <- v_remap(out, col = "RoundPhase", schema = "Beach Match Round Phase")
+  out <- v_remap(out, col = "Status", schema = "Beach Match Status")
+  out <- v_remap(out, col = "TournamentGender", schema = "Event Gender")
+  v_remap(out, col = "TournamentType", schema = "Beach Tournament Type")
 }
 
 

@@ -14,6 +14,36 @@ v_remap <- function(x, col, schema, from = "from", to = "to") {
 ## define data schema so that values can be remapped
 v_schema <- function(type) {
     switch(type,
+                      ## https://www.fivb.org/VisSDK/VisWebService/PressReleaseSourceCategory.html
+           "Press Release Source Category" = tribble(~from, ~to, ~descrption,
+                                                     0L,	"None",	"No source",
+                                                     1L,	"Fîvb",	"FIVB",
+                                                     2L,	"Confederation",	"Confederation",
+                                                     3L,	"Federation",	"Federation",
+                                                     4L,	"Other",	"Other"),
+           ## https://www.fivb.org/VisSDK/VisWebService/PressReleaseCategory.html
+           "Press Release Special Type" = tribble(~from, ~to, ~descrption,
+                                                  0L,	"None",	"Not a special release",
+                                                  1L,	"MatchPreview",	"Preview information for a match",
+                                                  2L,	"MatchFlash",	"Flash information or description for a match",
+                                                  3L,	"MatchPressConference",	"Press conference for a match",
+                                                  4L,	"TeamProfile",	"Profile for a team",
+                                                  5L,	"PlayerProfile",	"Profile for a player",
+                                                  6L,	"OfficialProfile",	"Profile for an official",
+                                                  7L,	"Features",	"Features"),
+           ## https://www.fivb.org/VisSDK/VisWebService/PressReleaseCategory.html
+           "Press Release Category" = tribble(~from, ~to, ~descrption,
+                                              0L,	"None",	"No category",
+                                              1L,	"Fivb",	"Global FIVB information",
+                                              2L,	"Volleyball",	"Release about volleyball",
+                                              3L,	"Beach",	"Release about beach volleyball",
+                                              4L,	"Development",	"Release about development",
+                                              5L,	"Refereeing",	"Release about refereeing",
+                                              6L,	"Rules",	"Release about the rules",
+                                              7L,	"Technical",	"Release with technical information",
+                                              8L,	"Coach",	"Release about coaches",
+                                              9L,	"Medical",	"Release with medical information",
+                                              10L,	"President",	"Release about the president"),
            ## https://www.fivb.org/VisSDK/VisWebService/#EventType.html
            "Event Type" = tribble(~from, ~to, ~descrption,
                                   1L,"Courses","One or more courses in a session",
