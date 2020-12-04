@@ -26,9 +26,10 @@ v_request <- function(type, fields, version, filter, old_style = FALSE, ...) {
 }
 
 
-## return can be "parsed" (convert XML to data frame) or (probably for testing purposes) "content" (unparsed content) or "request" (the request object)
-make_request <- function(request, type = "xml", return = "parsed", node_path, convert_cols = TRUE, as_tibble = TRUE, cache = v_caching()) {
+## return_type can be "parsed" (convert XML to data frame) or (probably for testing purposes) "content" (unparsed content) or "response" (the response object)
+make_request <- function(request, type = "xml", return_type = "parsed", node_path, convert_cols = TRUE, as_tibble = TRUE, cache = v_caching()) {
     hash <- paste0(digest::digest(list(request = request, type = type)), ".rds")
+    return_type <- match.arg(tolower(return_type), c("content", "response", "parsed"))
     cfname <- file.path(v_cache_dir(), hash)
     if (isTRUE(cache) && file.exists(cfname) && file.size(cfname) > 0) {
         cok <- FALSE
@@ -49,28 +50,32 @@ make_request <- function(request, type = "xml", return = "parsed", node_path, co
         }, silent = TRUE)
         message("making ", req_type, " request")
     }
-    out <- do_make_request(request = request, type = type, return = return, node_path = node_path)
+    out <- do_make_request(request = request, type = type, return_type = return_type, node_path = node_path)
     if (isTRUE(cache) || cache %in% "refresh") {
         if (v_verbose()) message("caching to ", cfname)
         saveRDS(out, file = cfname)
     }
-    if (isTRUE(convert_cols)) {
-        ## all columns will be character at this point
-        ## attempt to convert columns into appropriate types
-        try(out <- data.table::fread(text = capture.output(write.csv(out, row.names = FALSE)), data.table = FALSE), silent = TRUE)
+    if (return_type == "parsed") {
+        if (isTRUE(convert_cols)) {
+            ## all columns will be character at this point
+            ## attempt to convert columns into appropriate types
+            try(out <- data.table::fread(text = capture.output(write.csv(out, row.names = FALSE)), data.table = FALSE), silent = TRUE)
+        }
+        if (isTRUE(as_tibble)) out <- tibble::as_tibble(out)
     }
-    if (isTRUE(as_tibble)) tibble::as_tibble(out) else out
+    out
 }
 
-do_make_request <- function(request, type = "xml", return, node_path) {
+do_make_request <- function(request, type = "xml", return_type, node_path) {
     if (inherits(request, "XMLElement")) request <- as.character(request)
     type <- match.arg(tolower(type), c("json", "xml"))
     cf <- if (type == "json") httr::accept_json() else httr::accept_xml()
+    return_type <- match.arg(tolower(return_type), c("content", "response", "parsed"))
     out <- httr::POST(url = base_url, config = cf, body = request)
-    if (identical(return, "response")) return(out)
+    if (return_type == "response") return(out)
     response_type <- httr::http_type(out)
     out <- httr::content(out, as = "text", encoding = "UTF-8")
-    if (identical(return, "content")) return(out)
+    if (return_type == "content") return(out)
     if (response_type == "application/xml") {
         if (!missing(node_path)) {
             ## use XML:::xmlAttrsToDataFrame
