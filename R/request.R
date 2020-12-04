@@ -138,7 +138,7 @@ cached_get_file <- function(url, fileext, cache = v_caching()) {
 #'
 #' @export
 v_caching <- function(caching) {
-    opts <- options()$fivbvis
+    opts <- v_options()
     if (!missing(caching) && !is.null(caching)) {
         if ((is.logical(caching) && !is.na(caching)) || (is.string(caching) && tolower(caching) == "refresh")) {
             opts$caching <- caching
@@ -153,14 +153,14 @@ v_caching <- function(caching) {
 #' @export
 #' @rdname v_caching
 v_cache_dir <- function(cache_dir) {
-    opts <- options()$fivbvis
+    opts <- v_options()
     if (!missing(cache_dir) && !is.null(cache_dir)) {
         if (is.string(cache_dir)) {
             if (identical(tolower(cache_dir), "user")) {
                 cache_dir <- rappdirs::user_data_dir(appname = "fivbvis")
                 if (!dir.exists(cache_dir)) dir.create(cache_dir, recursive = TRUE)
             } else if (identical(tolower(cache_dir), "session")) {
-                cache_dir <- v_options()$session_cache_dir
+                cache_dir <- opts$session_cache_dir
             }
             if (dir.exists(cache_dir)) {
                 opts$cache_dir <- cache_dir
