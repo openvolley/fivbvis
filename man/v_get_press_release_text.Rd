@@ -4,16 +4,14 @@
 \alias{v_get_press_release_text}
 \title{Get a press release text}
 \usage{
-v_get_press_release_text(no, fields = v_fields("Press Release Text"))
+v_get_press_release_text(no, language, fields = v_fields("Press Release Text"))
 }
 \arguments{
 \item{no}{integer: press release number}
 
+\item{language}{string: (currently ignored)}
+
 \item{fields}{character: fields to return}
-
-\item{language}{character: (currently ignored)}
-
-\item{filter}{list: (currently ignored)}
 }
 \value{
 A data.frame
@@ -23,7 +21,7 @@ Get a press release text
 }
 \examples{
 \dontrun{
-  v_get_press_release_text()
+  v_get_press_release_text(28639)
 }
 
 }

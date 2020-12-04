@@ -6,7 +6,7 @@
 \usage{
 v_get_press_release_list(
   no,
-  startindex,
+  startindex = 1,
   filter,
   fields = v_fields("Press Release")
 )
@@ -28,7 +28,7 @@ Get a list of press releases
 }
 \examples{
 \dontrun{
-  v_get_press_release_list()
+  v_get_press_release_list(10)
 }
 
 }
