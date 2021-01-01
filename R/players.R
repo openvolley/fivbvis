@@ -13,14 +13,26 @@
 #' }
 #'
 #' @export
-v_get_volley_player_list <- function(fields = v_fields("Volleyball Player"), version, filter) {
+v_get_volley_player_list <- function(fields = c(v_fields("Volleyball Player"), "FirstName", "LastName"), version, filter) {
     ## <Request Type="GetVolleyPlayerList"
     ##          Fields="<list of the fields to return>">
     ##          Version="<version of local list>">
     ##   <Filter /> <!-- optional: contains the filter to use -->
     ## </Request>
     req <- v_request(type = "GetVolleyPlayerList", fields = fields, version = version, filter = filter)
-    make_request(request = req, node_path = "//VolleyballPlayer")
+    with_names <- any(c("FirstName", "LastName") %in% fields)
+    if (with_names) {
+        req <- req$append(minixml::xml_elem("Relation", Name = "Player", Fields = "No FirstName LastName"))
+        ## we need to parse this differently because the Player info is embedded as a child of each VolleyballPlayer node, grr
+        out <- make_request(request = req, return_type = "content")
+        plx <- unique(XML:::xmlAttrsToDataFrame(XML::getNodeSet(XML::xmlParse(out, asText = TRUE), path = "//Player")))
+        plx <- plx[, setdiff(names(plx), "Version")]
+        out <- XML:::xmlAttrsToDataFrame(XML::getNodeSet(XML::xmlParse(out, asText = TRUE), path = "//VolleyballPlayer"))
+        ## now left-join player info to the main output
+        merge(out, plx, by.x = "NoPlayer", by.y = "No", all.x = TRUE, all.y = FALSE)
+    } else {
+        make_request(request = req, node_path = "//VolleyballPlayer")
+    }
 }
 
 #' Get a registration of a player in a volleyball tournament

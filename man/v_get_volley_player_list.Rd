@@ -5,7 +5,7 @@
 \title{Get a list of registration of players in volleyball tournaments}
 \usage{
 v_get_volley_player_list(
-  fields = v_fields("Volleyball Player"),
+  fields = c(v_fields("Volleyball Player"), "FirstName", "LastName"),
   version,
   filter
 )
