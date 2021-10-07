@@ -14,10 +14,17 @@ fivbvis provides an R client to the FIVB VIS web service system.
 
 ## Installation
 
-You can install fivbvis from GitHub with:
+You can install fivbvis with:
 
 ``` r
-## install.packages("remotes")
+options(repos = c(openvolley = "https://openvolley.r-universe.dev",
+                  CRAN = "https://cloud.r-project.org"))
+
+install.packages("fivbvis")
+
+## or
+
+install.packages("remotes") ## if needed
 remotes::install_github("openvolley/fivbvis")
 ```
 
@@ -31,13 +38,13 @@ all_tournaments <- v_get_volley_tournament_list()
 nrow(all_tournaments)
 ```
 
-    #> [1] 1027
+    #> [1] 1062
 
 Get details for a specific tournament:
 
 ``` r
 v_get_volley_tournament(1)
-#> # A tibble: 1 x 56
+#> # A tibble: 1 × 56
 #>   Actions BuyTicketsUrl City            Code     ContainsLiveComments
 #>     <int> <lgl>         <chr>           <chr>                   <int>
 #> 1    1023 NA            Algiers & Blida BU192005                    0
@@ -67,7 +74,7 @@ v_get_volley_tournament(1)
 #> 1     1 NA                    NA              NA      NA         
 #>   NoImageFivbLogo NoImagePublicity OrganizerCode OrganizerType
 #>   <lgl>           <lgl>            <lgl>                 <int>
-#> 1 NA              NA               NA                        0
+#> 1 NA              NA               NA                        1
 #>   PlayerDisplayMethod PublishOnMsdp Season ShortName
 #>                 <int>         <int>  <int> <lgl>    
 #> 1                   1             0   2005 NA       
@@ -76,7 +83,7 @@ v_get_volley_tournament(1)
 #> 1 Youth Boys' U19 World Championship 2005 2005-08-24      4        1
 #>   TournamentLogos  Type WebSite Version
 #>   <lgl>           <int> <lgl>     <int>
-#> 1 NA                  1 NA            1
+#> 1 NA                 16 NA            1
 ```
 
 By default, results are cached in a per-session cache, so if we make the
@@ -86,7 +93,7 @@ re-downloading:
 ``` r
 v_options(verbose = TRUE)
 v_get_volley_tournament(1)
-#> using cached file /tmp/Rtmp8htd1P/file467077ff974c/4a69e890376e4ee5b0f67be41ee86963.rds
+#> using cached file /tmp/RtmpNUszJv/file41292d15f1be/4a69e890376e4ee5b0f67be41ee86963.rds
 #>   Actions BuyTicketsUrl            City     Code ContainsLiveComments
 #> 1    1023               Algiers & Blida BU192005                    0
 #>   ContainsLiveScores ContainsMatches ContainsMatchResults ContainsNews
@@ -106,9 +113,27 @@ v_get_volley_tournament(1)
 #>   No NoArticlePresentation NoConfederation NoEvent NoImageLogo NoImageFivbLogo
 #> 1  1                                                                          
 #>   NoImagePublicity OrganizerCode OrganizerType PlayerDisplayMethod
-#> 1                                            0                   1
+#> 1                                            1                   1
 #>   PublishOnMsdp Season ShortName                         ShortNameOrName
 #> 1             0   2005           Youth Boys' U19 World Championship 2005
 #>    StartDate Status TeamType TournamentLogos Type WebSite Version
-#> 1 2005-08-24      4        1                    1               1
+#> 1 2005-08-24      4        1                   16               1
 ```
+
+## Troubleshooting
+
+Known issues:
+
+### `internal error: Huge input lookup`
+
+This indicates that the XML response from the FIVB server is too large
+or deeply nested and is causing the parser to fail. By default the
+parser restricts the nesting level that it allows, in order to prevent
+crashes or other undesirable behaviour. But you can remove this
+restriction by:
+
+``` r
+v_options(huge_xml = TRUE)
+```
+
+and then try your request again.

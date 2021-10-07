@@ -24,10 +24,17 @@ fivbvis provides an R client to the FIVB VIS web service system.
 
 ## Installation
 
-You can install fivbvis from GitHub with:
+You can install fivbvis with:
 
 ``` r
-## install.packages("remotes")
+options(repos = c(openvolley = "https://openvolley.r-universe.dev",
+                  CRAN = "https://cloud.r-project.org"))
+
+install.packages("fivbvis")
+
+## or
+
+install.packages("remotes") ## if needed
 remotes::install_github("openvolley/fivbvis")
 ```
 
@@ -69,3 +76,17 @@ v_options(verbose = TRUE)
 v_get_volley_tournament(1)
 
 ```
+
+## Troubleshooting
+
+Known issues:
+
+### `internal error: Huge input lookup`
+
+This indicates that the XML response from the FIVB server is too large or deeply nested and is causing the parser to fail. By default the parser restricts the nesting level that it allows, in order to prevent crashes or other undesirable behaviour. But you can remove this restriction by:
+
+```{r eval = FALSE}
+v_options(huge_xml = TRUE)
+```
+
+and then try your request again.
