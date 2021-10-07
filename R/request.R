@@ -27,7 +27,7 @@ v_request <- function(type, fields, version, filter, old_style = FALSE, ...) {
 
 
 ## return_type can be "parsed" (convert XML to data frame) or (probably for testing purposes) "content" (unparsed content) or "response" (the response object)
-make_request <- function(request, type = "xml", return_type = "parsed", node_path, convert_cols = TRUE, as_tibble = TRUE, cache = v_caching()) {
+make_request <- function(request, type = "xml", return_type = "parsed", node_path, convert_cols = TRUE, as_tibble = TRUE, cache = v_caching(), huge = FALSE) {
     hash <- paste0(digest::digest(list(request = request, type = type)), ".rds")
     return_type <- match.arg(tolower(return_type), c("content", "response", "parsed"))
     cfname <- file.path(v_cache_dir(), hash)
@@ -49,6 +49,11 @@ make_request <- function(request, type = "xml", return_type = "parsed", node_pat
             if (is.null(req_type)) req_type <- unique(unlist(lapply(request$children, function(z) z$attribs$Type)))
         }, silent = TRUE)
         message("making ", req_type, " request")
+    }
+    if (isTRUE(huge)) {
+        opts0 <- v_options()
+        on.exit(v_restore_options(opts0))
+        v_options(huge_xml = TRUE)
     }
     out <- do_make_request(request = request, type = type, return_type = return_type, node_path = node_path)
     if (isTRUE(cache) || cache %in% "refresh") {
@@ -76,12 +81,13 @@ do_make_request <- function(request, type = "xml", return_type, node_path) {
     response_type <- httr::http_type(out)
     out <- httr::content(out, as = "text", encoding = "UTF-8")
     if (return_type == "content") return(out)
+    xml_parse_options <- c(XML::RECOVER, if (isTRUE(v_options()$huge_xml)) c(XML::COMPACT, XML::HUGE))
     if (response_type == "application/xml") {
         if (!missing(node_path)) {
             ## use XML:::xmlAttrsToDataFrame
-            out <- XML:::xmlAttrsToDataFrame(XML::getNodeSet(XML::xmlParse(out, asText = TRUE), path = node_path))
+            out <- XML:::xmlAttrsToDataFrame(XML::getNodeSet(XML::xmlParse(out, asText = TRUE, options = xml_parse_options), path = node_path))
         } else {
-            out <- XML::xmlToList(XML::xmlParse(out, asText = TRUE))
+            out <- XML::xmlToList(XML::xmlParse(out, asText = TRUE, options = xml_parse_options))
             if (is.character(out)) {
                 try(out <- as.data.frame(as.list(out), stringsAsFactors = FALSE), silent = TRUE)
             } else {

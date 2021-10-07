@@ -4,9 +4,11 @@
 \alias{v_options}
 \title{Set or get fivbvis options}
 \usage{
-v_options(verbose = FALSE)
+v_options(huge_xml = FALSE, verbose = FALSE)
 }
 \arguments{
+\item{huge_xml}{logical: if \code{TRUE}, set the XML parsing options to allow "huge" (i.e. deeply-nested) XML documents to be parsed}
+
 \item{verbose}{logical: if \code{TRUE}, display progress information}
 }
 \value{

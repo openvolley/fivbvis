@@ -44,13 +44,14 @@ v_get_beach_tournament <- function(no, fields) {
 #'
 #' @export
 v_get_beach_tournament_list <- function(fields = v_fields("Beach Tournament"), version, filter) {
-  ## <Request Type="GetBeachTournamentList"
-  ##          Fields="<list of the fields to return>">
-  ##          Version="<version of local list>">
-  ##   <Filter /> <!-- optional: contains the filter to use -->
-  ## </Request>
-  req <- v_request(type = "GetBeachTournamentList", fields = fields, version = version, filter = filter)
-  make_request(request = req, node_path = "//BeachTournament")
+    ## <Request Type="GetBeachTournamentList"
+    ##          Fields="<list of the fields to return>">
+    ##          Version="<version of local list>">
+    ##   <Filter /> <!-- optional: contains the filter to use -->
+    ## </Request>
+    req <- v_request(type = "GetBeachTournamentList", fields = fields, version = version, filter = filter)
+    ## this request tends to give xml parse failures because the response is too deeply nested, so switch on the 'huge' xml parsing option
+    make_request(request = req, node_path = "//BeachTournament", huge = TRUE)
 }
 
 #' Request to get a beach volleyball Olympic Selection ranking
