@@ -1,61 +1,56 @@
 #' Get a list of registration of players in volleyball tournaments
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetVolleyPlayerList.html}
-#' @param fields character: fields to return
-#' @param version integer: version of local list (currently ignored)
-#' @param filter list: (currently ignored)
+#' @param parent list: List of named charactor vectors. Specify attributes of Request Node.
+#' @param children list: Named list of named charactor vectors. Add child nodes such as Filter, Relation.
 #'
 #' @return A data.frame
 #'
 #' @examples
 #' \dontrun{
-#'   v_get_volley_player_list()
+#'   cl <- list(
+#'     Filter = c(NoTournament = 1257),
+#'     Relation = c(Name = "Player", Fields = "No TeamName FirstName LastName")
+#'   )
+#'   v_get_volley_player_list(children = cl)
 #' }
 #'
 #' @export
-v_get_volley_player_list <- function(fields = c(v_fields("Volleyball Player"), "FirstName", "LastName"), version, filter) {
-    ## <Request Type="GetVolleyPlayerList"
-    ##          Fields="<list of the fields to return>">
-    ##          Version="<version of local list>">
-    ##   <Filter /> <!-- optional: contains the filter to use -->
-    ## </Request>
-    req <- v_request(type = "GetVolleyPlayerList", fields = fields, version = version, filter = filter)
-    with_names <- any(c("FirstName", "LastName") %in% fields)
-    if (with_names) {
-        req <- req$append(minixml::xml_elem("Relation", Name = "Player", Fields = "No FirstName LastName"))
-        ## we need to parse this differently because the Player info is embedded as a child of each VolleyballPlayer node, grr
-        out <- make_request(request = req, return_type = "content")
-        plx <- unique(XML:::xmlAttrsToDataFrame(XML::getNodeSet(XML::xmlParse(out, asText = TRUE), path = "//Player")))
-        plx <- plx[, setdiff(names(plx), "Version")]
-        out <- XML:::xmlAttrsToDataFrame(XML::getNodeSet(XML::xmlParse(out, asText = TRUE), path = "//VolleyballPlayer"))
-        ## now left-join player info to the main output
-        merge(out, plx, by.x = "NoPlayer", by.y = "No", all.x = TRUE, all.y = FALSE)
-    } else {
-        make_request(request = req, node_path = "//VolleyballPlayer")
-    }
+v_get_volley_player_list <- function(parent = list(Fields = paste0(v_fields("Volleyball Player"), collapse = " ")), children) {
+  # <Request Type="GetVolleyPlayerList"
+  #          Fields="<list of the fields to return>">
+  #          Version="<version of local list>">
+  #     <Filter /> <!-- optional: contains the filter to use -->
+  # </Request>
+  req <- v_request2(type = "GetVolleyPlayerList", parent, children)
+  out <- make_request(req, type = "json")
+  v_remap(out, col = "position", schema = "Player Volley Pos")
 }
 
 #' Get a registration of a player in a volleyball tournament
 #'
 #' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetVolleyPlayer.html}
-#' @param no integer: the number of the player registration
-#' @param fields character: fields to return
+#' @param parent list: List of named charactor vectors. Specify attributes of Request Node.
+#' @param children list: Named list of named charactor vectors. Add child nodes such as Filter, Relation.
 #'
 #' @return A data.frame
 #'
 #' @examples
 #' \dontrun{
-#'   v_get_volley_player(2508)
+#'   pl <- list(No = 89538, Fields = paste0(v_fields("Volleyball Player"), collapse = " "))
+#'   cl <- list(Relation = c(Name = "Player", Fields = "No TeamName FirstName LastName"))
+#'   v_get_volley_player(parent = pl, children = cl)
 #' }
 #'
 #' @export
-v_get_volley_player <- function(no, fields) {
-    ## <Request Type="GetVolleyPlayer"
-    ##      No="<player number>">
-    ##      Fields="<Optional: list of the fields to return>" />
-    req <- v_request(type = "GetVolleyPlayer", no = no, fields = fields)
-    out <- make_request(req, node_path = "//VolleyballPlayer")
-    v_remap(out, col = "Position", schema = "Player Volley Position")
+v_get_volley_player <- function(parent, children) {
+  # <Request Type="GetVolleyPlayer"
+  #          No="<player number>">
+  #          Fields="<Optional: list of the fields to return>" />
+  # mandatory: "No"
+  req <- v_request2(type = "GetVolleyPlayer", parent, children)
+  out <- make_request(req, type = "json")
+  v_remap(out, col = "position", schema = "Player Volley Pos")
 }
 
 #' Get a player
@@ -73,13 +68,44 @@ v_get_volley_player <- function(no, fields) {
 #'
 #' @export
 v_get_player <- function(no, fields) {
-    ## <Request Type="GetPlayer"
-    ##          No="<player number>"
-    ##          Fields="<optional: list of the fields to return>" />
-    req <- v_request(type = "GetPlayer", no = no, fields = fields)
-    out <- make_request(req, node_path = "//Player")
-    out <- v_remap(out, col = "VolleyPosition", schema = "Player Volley Position")
-    v_remap(out, col = "BeachPosition", schema = "Player Beach Position")
+  ## <Request Type="GetPlayer"
+  ##          No="<player number>"
+  ##          Fields="<optional: list of the fields to return>" />
+  req <- v_request(type = "GetPlayer", no = no, fields = fields)
+  out <- make_request(req, node_path = "//Player")
+  out <- v_remap(out, col = "VolleyPosition", schema = "Player Volley Position")
+  v_remap(out, col = "BeachPosition", schema = "Player Beach Position")
 }
 
-## TODO https://www.fivb.org/VisSDK/VisWebService/#GetVolleyPlayersRankingList.html
+#' Get the ranking of the players in a volleyball tournament
+#'
+#' @references \url{https://www.fivb.org/VisSDK/VisWebService/#GetVolleyPlayersRankingList.html}
+#' @param parent list: List of named charactor vectors. Specify attributes of Request Node.
+#'
+#' @return A data.frame
+#'
+#' @examples
+#' \dontrun{
+#'   pl <- list(No = 229, NumberOfScorers = 20, NumberOfPlayers = 20, Skills = "Block Dig Libero Reception Scorer Service Set Spike")
+#'   vb_player_ranking <- v_get_volley_player_ranking(parent = pl)
+#' }
+#'
+#' @export
+v_get_volley_player_ranking <- function(parent) {
+  # <Request Type="GetVolleyPlayersRankingList"
+  #          No="<the number of the ranking>"
+  #          NoTournament="<the number of the tournament>"
+  #          NumberOfPlayers="<the number of players to return>";
+  #          NumberOfScorers="<the number of scorers to return>";
+  #          Skills="<the skills to return>" />
+  # mandatory: "No"
+  req <- XML::addChildren(XML::xmlNode("Requests"), kids = list(v_request2(type = "GetVolleyPlayersRankingList", parent)))
+  out <- make_request(req, return_type = "content")
+  xml_parse_options <- c(XML::RECOVER, if (isTRUE(v_options()$huge_xml)) c(XML::COMPACT, XML::HUGE))
+  out <- XML::xmlToList(XML::xmlParse(out, asText = TRUE, options = xml_parse_options))[[1]]
+  out <- purrr::set_names(out, purrr::map_chr(out, ~ .x[[".attrs"]][1]))
+  out <- purrr::map(out, function(z) {
+    out <- dplyr::bind_rows(z[c(names(z) == "Player")])
+    v_remap(out, col = "CourtPosition", schema = "Player Volley Pos")
+  })
+}

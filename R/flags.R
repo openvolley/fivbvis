@@ -12,10 +12,8 @@
 #'
 #' @export
 v_flag <- function(country_code) {
-    tf <- tempfile(fileext = ".png")
-    assert_that(is.string(country_code))
-    url <- paste0("https://www.fivb.org/Vis2009/Images/Flags/Small/", toupper(country_code), ".png")
-    cached_get_file(url, fileext = ".png")
+  tf <- tempfile(fileext = ".png")
+  assert_that(is.string(country_code))
+  url <- paste0("https://www.fivb.org/Vis2009/Images/Flags/Small/", toupper(country_code), ".png")
+  cached_get_file(url, fileext = ".png")
 }
-
-

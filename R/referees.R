@@ -14,13 +14,11 @@
 #'
 #' @export
 v_get_referee_list <- function(fields = v_fields("Referee"), version, filter) {
-    ## <Request Type="GetRefereeList"
-    ##          Fields="<list of the fields to return>">
-    ##          Version="<version of local list>">
-    ##   <Filter /> <!-- optional: contains the filter to use -->
-    ## </Request>
-    req <- v_request(type = "GetRefereeList", fields = fields, version = version, filter = filter, old_style = TRUE)
-    make_request(req, node_path = "//Referee")
+  ## <Request Type="GetRefereeList"
+  ##          Fields="<list of the fields to return>">
+  ##          Version="<version of local list>">
+  ##   <Filter /> <!-- optional: contains the filter to use -->
+  ## </Request>
+  req <- v_request(type = "GetRefereeList", fields = fields, version = version, filter = filter, old_style = TRUE)
+  make_request(req, node_path = "//Referee")
 }
-
-

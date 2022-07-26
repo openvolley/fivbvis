@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'   v_get_event(1)
+#' v_get_event(1)
 #' }
 #'
 #' @export
@@ -34,7 +34,7 @@ v_get_event <- function(no, fields) {
 #'
 #' @examples
 #' \dontrun{
-#'   v_get_event_list()
+#' v_get_event_list()
 #' }
 #'
 #' @export
