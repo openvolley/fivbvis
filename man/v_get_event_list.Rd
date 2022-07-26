@@ -21,7 +21,7 @@ Get an event list
 }
 \examples{
 \dontrun{
-  v_get_event_list()
+v_get_event_list()
 }
 
 }

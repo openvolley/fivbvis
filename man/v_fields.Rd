@@ -7,7 +7,7 @@
 v_fields(type)
 }
 \arguments{
-\item{type}{string: the data type, currently one of "Volleyball Tournament", "Volleyball Tournament Ranking", "Volleyball Tournament Filter", "Volleyball Player", "Volleyball Match"}
+\item{type}{string: the data type, currently one of "Volleyball Tournament", "Volleyball Tournament Filter", "Volleyball Tournament Ranking", "Volleyball Match", "Volleyball Match Filter", "Volleyball Pool", "Volleyball Pool Filter", "Volleyball Pool Ranking", "Volleyball Team", "Volleyball Team Filter", "Volleyball Player", "Volleyball Player Filter", "Volleyball Player Ranking", "Volleyball Statistics"}
 }
 \value{
 A character vector of field names

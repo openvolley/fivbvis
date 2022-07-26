@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">fivbvis</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -59,139 +55,173 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="fivbvis" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#fivbvis" class="anchor"></a>fivbvis</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="fivbvis">fivbvis<a class="anchor" aria-label="anchor" href="#fivbvis"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>fivbvis provides an R client to the FIVB VIS web service system.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install fivbvis from GitHub with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install fivbvis with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"openvolley/fivbvis"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>openvolley <span class="op">=</span> <span class="st">"https://openvolley.r-universe.dev"</span>,</span>
+<span>                  CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"fivbvis"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## or</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span> <span class="co">## if needed</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"openvolley/fivbvis"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>Fetch list of tournaments:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fivbvis</span><span class="op">)</span>
-<span class="va">all_tournaments</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/v_get_volley_tournament_list.html">v_get_volley_tournament_list</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">all_tournaments</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1027</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wehslai.github.io/fivbvis/" class="external-link">fivbvis</a></span><span class="op">)</span></span>
+<span><span class="va">all_tournaments</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/v_get_volley_tournament_list.html">v_get_volley_tournament_list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">all_tournaments</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1062</span></span></code></pre></div>
 <p>Get details for a specific tournament:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/v_get_volley_tournament.html">v_get_volley_tournament</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 56</span>
-<span class="co">#&gt;   Actions BuyTicketsUrl City            Code     ContainsLiveComments</span>
-<span class="co">#&gt;     &lt;int&gt; &lt;lgl&gt;         &lt;chr&gt;           &lt;chr&gt;                   &lt;int&gt;</span>
-<span class="co">#&gt; 1    1023 NA            Algiers &amp; Blida BU192005                    0</span>
-<span class="co">#&gt;   ContainsLiveScores ContainsMatches ContainsMatchResults ContainsNews</span>
-<span class="co">#&gt;                &lt;int&gt;           &lt;int&gt;                &lt;int&gt;        &lt;int&gt;</span>
-<span class="co">#&gt; 1                  0               0                    0            0</span>
-<span class="co">#&gt;   ContainsPictures ContainsPlayByPlay ContainsPlayers ContainsRanking</span>
-<span class="co">#&gt;              &lt;int&gt;              &lt;int&gt;           &lt;int&gt;           &lt;int&gt;</span>
-<span class="co">#&gt; 1                0                  0               0               0</span>
-<span class="co">#&gt;   ContainsStatistics ContainsTeams ContainsVideos ContainsVideoTracking</span>
-<span class="co">#&gt;                &lt;int&gt;         &lt;int&gt;          &lt;int&gt;                 &lt;int&gt;</span>
-<span class="co">#&gt; 1                  0             0              0                     0</span>
-<span class="co">#&gt;   CountryCode CountryName DeadlineO2 DeadlineO2A DeadlineO2bis</span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;       &lt;date&gt;     &lt;lgl&gt;       &lt;date&gt;       </span>
-<span class="co">#&gt; 1 DZ          Algeria     2005-05-20 NA          2005-08-22   </span>
-<span class="co">#&gt;   DefaultPlayersRanking EndDate    EventLogos Gender IsFreeEntrance IsVisManaged</span>
-<span class="co">#&gt;   &lt;lgl&gt;                 &lt;date&gt;     &lt;lgl&gt;       &lt;int&gt;          &lt;int&gt;        &lt;int&gt;</span>
-<span class="co">#&gt; 1 NA                    2005-09-01 NA              0              0            0</span>
-<span class="co">#&gt;   Logos MaxNbPlayersO2 MaxNbPlayersO2A MaxNbPlayersO2bis</span>
-<span class="co">#&gt;   &lt;lgl&gt;          &lt;int&gt;           &lt;int&gt;             &lt;int&gt;</span>
-<span class="co">#&gt; 1 NA                18               0                12</span>
-<span class="co">#&gt;   MaxNbTeamOfficialsOnBench MaxNbTeams Name                                   </span>
-<span class="co">#&gt;                       &lt;int&gt;      &lt;int&gt; &lt;chr&gt;                                  </span>
-<span class="co">#&gt; 1                         5          0 Youth Boys' U19 World Championship 2005</span>
-<span class="co">#&gt;      No NoArticlePresentation NoConfederation NoEvent NoImageLogo</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;lgl&gt;                 &lt;lgl&gt;           &lt;lgl&gt;   &lt;lgl&gt;      </span>
-<span class="co">#&gt; 1     1 NA                    NA              NA      NA         </span>
-<span class="co">#&gt;   NoImageFivbLogo NoImagePublicity OrganizerCode OrganizerType</span>
-<span class="co">#&gt;   &lt;lgl&gt;           &lt;lgl&gt;            &lt;lgl&gt;                 &lt;int&gt;</span>
-<span class="co">#&gt; 1 NA              NA               NA                        0</span>
-<span class="co">#&gt;   PlayerDisplayMethod PublishOnMsdp Season ShortName</span>
-<span class="co">#&gt;                 &lt;int&gt;         &lt;int&gt;  &lt;int&gt; &lt;lgl&gt;    </span>
-<span class="co">#&gt; 1                   1             0   2005 NA       </span>
-<span class="co">#&gt;   ShortNameOrName                         StartDate  Status TeamType</span>
-<span class="co">#&gt;   &lt;chr&gt;                                   &lt;date&gt;      &lt;int&gt;    &lt;int&gt;</span>
-<span class="co">#&gt; 1 Youth Boys' U19 World Championship 2005 2005-08-24      4        1</span>
-<span class="co">#&gt;   TournamentLogos  Type WebSite Version</span>
-<span class="co">#&gt;   &lt;lgl&gt;           &lt;int&gt; &lt;lgl&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 NA                  1 NA            1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/v_get_volley_tournament.html">v_get_volley_tournament</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 56</span></span>
+<span><span class="co">#&gt;   Actions BuyTicketsUrl City            Code     ContainsLiveComments</span></span>
+<span><span class="co">#&gt;     &lt;int&gt; &lt;lgl&gt;         &lt;chr&gt;           &lt;chr&gt;                   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1    1023 NA            Algiers &amp; Blida BU192005                    0</span></span>
+<span><span class="co">#&gt;   ContainsLiveScores ContainsMatches ContainsMatchResults ContainsNews</span></span>
+<span><span class="co">#&gt;                &lt;int&gt;           &lt;int&gt;                &lt;int&gt;        &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1                  0               0                    0            0</span></span>
+<span><span class="co">#&gt;   ContainsPictures ContainsPlayByPlay ContainsPlayers ContainsRanking</span></span>
+<span><span class="co">#&gt;              &lt;int&gt;              &lt;int&gt;           &lt;int&gt;           &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1                0                  0               0               0</span></span>
+<span><span class="co">#&gt;   ContainsStatistics ContainsTeams ContainsVideos ContainsVideoTracking</span></span>
+<span><span class="co">#&gt;                &lt;int&gt;         &lt;int&gt;          &lt;int&gt;                 &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1                  0             0              0                     0</span></span>
+<span><span class="co">#&gt;   CountryCode CountryName DeadlineO2 DeadlineO2A DeadlineO2bis</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;       &lt;date&gt;     &lt;lgl&gt;       &lt;date&gt;       </span></span>
+<span><span class="co">#&gt; 1 DZ          Algeria     2005-05-20 NA          2005-08-22   </span></span>
+<span><span class="co">#&gt;   DefaultPlayersRanking EndDate    EventLogos Gender IsFreeEntrance IsVisManaged</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt;                 &lt;date&gt;     &lt;lgl&gt;       &lt;int&gt;          &lt;int&gt;        &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 NA                    2005-09-01 NA              0              0            0</span></span>
+<span><span class="co">#&gt;   Logos MaxNbPlayersO2 MaxNbPlayersO2A MaxNbPlayersO2bis</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt;          &lt;int&gt;           &lt;int&gt;             &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 NA                18               0                12</span></span>
+<span><span class="co">#&gt;   MaxNbTeamOfficialsOnBench MaxNbTeams Name                                   </span></span>
+<span><span class="co">#&gt;                       &lt;int&gt;      &lt;int&gt; &lt;chr&gt;                                  </span></span>
+<span><span class="co">#&gt; 1                         5          0 Youth Boys' U19 World Championship 2005</span></span>
+<span><span class="co">#&gt;      No NoArticlePresentation NoConfederation NoEvent NoImageLogo</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;lgl&gt;                 &lt;lgl&gt;           &lt;lgl&gt;   &lt;lgl&gt;      </span></span>
+<span><span class="co">#&gt; 1     1 NA                    NA              NA      NA         </span></span>
+<span><span class="co">#&gt;   NoImageFivbLogo NoImagePublicity OrganizerCode OrganizerType</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt;           &lt;lgl&gt;            &lt;lgl&gt;                 &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 NA              NA               NA                        1</span></span>
+<span><span class="co">#&gt;   PlayerDisplayMethod PublishOnMsdp Season ShortName</span></span>
+<span><span class="co">#&gt;                 &lt;int&gt;         &lt;int&gt;  &lt;int&gt; &lt;lgl&gt;    </span></span>
+<span><span class="co">#&gt; 1                   1             0   2005 NA       </span></span>
+<span><span class="co">#&gt;   ShortNameOrName                         StartDate  Status TeamType</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                                   &lt;date&gt;      &lt;int&gt;    &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Youth Boys' U19 World Championship 2005 2005-08-24      4        1</span></span>
+<span><span class="co">#&gt;   TournamentLogos  Type WebSite Version</span></span>
+<span><span class="co">#&gt;   &lt;lgl&gt;           &lt;int&gt; &lt;lgl&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 NA                 16 NA            1</span></span></code></pre></div>
 <p>By default, results are cached in a per-session cache, so if we make the same request again the local results are used, rather than re-downloading:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/v_options.html">v_options</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="reference/v_get_volley_tournament.html">v_get_volley_tournament</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; using cached file /tmp/Rtmp8htd1P/file467077ff974c/4a69e890376e4ee5b0f67be41ee86963.rds</span>
-<span class="co">#&gt;   Actions BuyTicketsUrl            City     Code ContainsLiveComments</span>
-<span class="co">#&gt; 1    1023               Algiers &amp; Blida BU192005                    0</span>
-<span class="co">#&gt;   ContainsLiveScores ContainsMatches ContainsMatchResults ContainsNews</span>
-<span class="co">#&gt; 1                  0               0                    0            0</span>
-<span class="co">#&gt;   ContainsPictures ContainsPlayByPlay ContainsPlayers ContainsRanking</span>
-<span class="co">#&gt; 1                0                  0               0               0</span>
-<span class="co">#&gt;   ContainsStatistics ContainsTeams ContainsVideos ContainsVideoTracking</span>
-<span class="co">#&gt; 1                  0             0              0                     0</span>
-<span class="co">#&gt;   CountryCode CountryName DeadlineO2 DeadlineO2A DeadlineO2bis</span>
-<span class="co">#&gt; 1          DZ     Algeria 2005-05-20                2005-08-22</span>
-<span class="co">#&gt;   DefaultPlayersRanking    EndDate EventLogos Gender IsFreeEntrance</span>
-<span class="co">#&gt; 1                       2005-09-01                 0              0</span>
-<span class="co">#&gt;   IsVisManaged Logos MaxNbPlayersO2 MaxNbPlayersO2A MaxNbPlayersO2bis</span>
-<span class="co">#&gt; 1            0                   18               0                12</span>
-<span class="co">#&gt;   MaxNbTeamOfficialsOnBench MaxNbTeams                                    Name</span>
-<span class="co">#&gt; 1                         5          0 Youth Boys' U19 World Championship 2005</span>
-<span class="co">#&gt;   No NoArticlePresentation NoConfederation NoEvent NoImageLogo NoImageFivbLogo</span>
-<span class="co">#&gt; 1  1                                                                          </span>
-<span class="co">#&gt;   NoImagePublicity OrganizerCode OrganizerType PlayerDisplayMethod</span>
-<span class="co">#&gt; 1                                            0                   1</span>
-<span class="co">#&gt;   PublishOnMsdp Season ShortName                         ShortNameOrName</span>
-<span class="co">#&gt; 1             0   2005           Youth Boys' U19 World Championship 2005</span>
-<span class="co">#&gt;    StartDate Status TeamType TournamentLogos Type WebSite Version</span>
-<span class="co">#&gt; 1 2005-08-24      4        1                    1               1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/v_options.html">v_options</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/v_get_volley_tournament.html">v_get_volley_tournament</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; using cached file /tmp/RtmpNUszJv/file41292d15f1be/4a69e890376e4ee5b0f67be41ee86963.rds</span></span>
+<span><span class="co">#&gt;   Actions BuyTicketsUrl            City     Code ContainsLiveComments</span></span>
+<span><span class="co">#&gt; 1    1023               Algiers &amp; Blida BU192005                    0</span></span>
+<span><span class="co">#&gt;   ContainsLiveScores ContainsMatches ContainsMatchResults ContainsNews</span></span>
+<span><span class="co">#&gt; 1                  0               0                    0            0</span></span>
+<span><span class="co">#&gt;   ContainsPictures ContainsPlayByPlay ContainsPlayers ContainsRanking</span></span>
+<span><span class="co">#&gt; 1                0                  0               0               0</span></span>
+<span><span class="co">#&gt;   ContainsStatistics ContainsTeams ContainsVideos ContainsVideoTracking</span></span>
+<span><span class="co">#&gt; 1                  0             0              0                     0</span></span>
+<span><span class="co">#&gt;   CountryCode CountryName DeadlineO2 DeadlineO2A DeadlineO2bis</span></span>
+<span><span class="co">#&gt; 1          DZ     Algeria 2005-05-20                2005-08-22</span></span>
+<span><span class="co">#&gt;   DefaultPlayersRanking    EndDate EventLogos Gender IsFreeEntrance</span></span>
+<span><span class="co">#&gt; 1                       2005-09-01                 0              0</span></span>
+<span><span class="co">#&gt;   IsVisManaged Logos MaxNbPlayersO2 MaxNbPlayersO2A MaxNbPlayersO2bis</span></span>
+<span><span class="co">#&gt; 1            0                   18               0                12</span></span>
+<span><span class="co">#&gt;   MaxNbTeamOfficialsOnBench MaxNbTeams                                    Name</span></span>
+<span><span class="co">#&gt; 1                         5          0 Youth Boys' U19 World Championship 2005</span></span>
+<span><span class="co">#&gt;   No NoArticlePresentation NoConfederation NoEvent NoImageLogo NoImageFivbLogo</span></span>
+<span><span class="co">#&gt; 1  1                                                                          </span></span>
+<span><span class="co">#&gt;   NoImagePublicity OrganizerCode OrganizerType PlayerDisplayMethod</span></span>
+<span><span class="co">#&gt; 1                                            1                   1</span></span>
+<span><span class="co">#&gt;   PublishOnMsdp Season ShortName                         ShortNameOrName</span></span>
+<span><span class="co">#&gt; 1             0   2005           Youth Boys' U19 World Championship 2005</span></span>
+<span><span class="co">#&gt;    StartDate Status TeamType TournamentLogos Type WebSite Version</span></span>
+<span><span class="co">#&gt; 1 2005-08-24      4        1                   16               1</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h2>
+<p>Known issues:</p>
+<div class="section level3">
+<h3 id="internal-error-huge-input-lookup">
+<code>internal error: Huge input lookup</code><a class="anchor" aria-label="anchor" href="#internal-error-huge-input-lookup"></a>
+</h3>
+<p>This indicates that the XML response from the FIVB server is too large or deeply nested and is causing the parser to fail. By default the parser restricts the nesting level that it allows, in order to prevent crashes or other undesirable behaviour. But you can remove this restriction by:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/v_options.html">v_options</a></span><span class="op">(</span>huge_xml <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>and then try your request again.</p>
+</div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing fivbvis</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Ben Raymond <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Adrien Ickowicz <br><small class="roles"> Author </small>  </li>
 <li>Tyler Widdison <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li>Wen Hsiu Lai <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Ben Raymond, Adrien Ickowicz, Tyler Widdison.</p>
+  <p></p>
+<p>Developed by Ben Raymond, Adrien Ickowicz, Tyler Widdison, Wen Hsiu Lai.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
@@ -199,6 +229,8 @@
 
   
 
+
+  
 
   </body>
 </html>

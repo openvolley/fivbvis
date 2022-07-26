@@ -4,12 +4,12 @@
 \alias{v_get_volley_match}
 \title{Get a volleyball match}
 \usage{
-v_get_volley_match(no, fields)
+v_get_volley_match(parent, children)
 }
 \arguments{
-\item{no}{integer: match number}
+\item{parent}{list: List of named charactor vectors. Specify attributes of Request Node.}
 
-\item{fields}{character: fields to return}
+\item{children}{list: Named list of named charactor vectors. Add child nodes such as Filter, Relation.}
 }
 \value{
 A data.frame
@@ -19,7 +19,8 @@ Get a volleyball match
 }
 \examples{
 \dontrun{
-  v_get_volley_match(7604)
+  pl <- list(No = 13754, Fields = paste0(v_fields("Volleyball Match"), collapse = " "))
+  v_get_volley_match(parent = pl)
 }
 
 }

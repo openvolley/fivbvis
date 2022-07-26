@@ -19,7 +19,7 @@ Get an event
 }
 \examples{
 \dontrun{
-  v_get_event(1)
+v_get_event(1)
 }
 
 }

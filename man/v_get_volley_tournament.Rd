@@ -4,12 +4,12 @@
 \alias{v_get_volley_tournament}
 \title{Get a volleyball tournament}
 \usage{
-v_get_volley_tournament(no, fields)
+v_get_volley_tournament(parent, children)
 }
 \arguments{
-\item{no}{integer: the tournament number ("No" as returned by \code{v_get_volley_tournament_list}}
+\item{parent}{list: List of named charactor vectors. Specify attributes of Request Node.}
 
-\item{fields}{character: fields to return}
+\item{children}{list: Named list of named charactor vectors. Add child nodes such as Filter, Relation.}
 }
 \value{
 A data.frame
@@ -19,7 +19,8 @@ Get a volleyball tournament
 }
 \examples{
 \dontrun{
-  v_get_volley_tournament(1)
+  pl <- list(No = 1257)
+  v_get_volley_tournament(parent = pl)
 }
 
 }

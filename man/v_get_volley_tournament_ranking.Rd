@@ -4,15 +4,10 @@
 \alias{v_get_volley_tournament_ranking}
 \title{Get the ranking of a volleyball tournament}
 \usage{
-v_get_volley_tournament_ranking(
-  notournament,
-  fields = v_fields("Volleyball Tournament Ranking")
-)
+v_get_volley_tournament_ranking(parent)
 }
 \arguments{
-\item{notournament}{integer: the tournament number ("No" as returned by \code{v_get_volley_tournament_list}}
-
-\item{fields}{character: fields to return}
+\item{parent}{list: List of named charactor vectors. Specify attributes of Request Node.}
 }
 \value{
 A data.frame
@@ -22,7 +17,11 @@ Get the ranking of a volleyball tournament
 }
 \examples{
 \dontrun{
-  v_get_volley_tournament_ranking(1032)
+  pl <- list(
+    NoTournament = "1182",
+    Fields = paste(v_fields("Volleyball Tournament Ranking"), collapse = " ")
+  )
+  vb_tournament_ranking <- v_get_volley_tournament_ranking(parent = pl)
 }
 
 }

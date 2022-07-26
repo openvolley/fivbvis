@@ -4,12 +4,12 @@
 \alias{v_get_volley_player}
 \title{Get a registration of a player in a volleyball tournament}
 \usage{
-v_get_volley_player(no, fields)
+v_get_volley_player(parent, children)
 }
 \arguments{
-\item{no}{integer: the number of the player registration}
+\item{parent}{list: List of named charactor vectors. Specify attributes of Request Node.}
 
-\item{fields}{character: fields to return}
+\item{children}{list: Named list of named charactor vectors. Add child nodes such as Filter, Relation.}
 }
 \value{
 A data.frame
@@ -19,7 +19,9 @@ Get a registration of a player in a volleyball tournament
 }
 \examples{
 \dontrun{
-  v_get_volley_player(2508)
+  pl <- list(No = 89538, Fields = paste0(v_fields("Volleyball Player"), collapse = " "))
+  cl <- list(Relation = c(Name = "Player", Fields = "No TeamName FirstName LastName"))
+  v_get_volley_player(parent = pl, children = cl)
 }
 
 }
