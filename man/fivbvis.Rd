@@ -5,5 +5,5 @@
 \alias{fivbvis}
 \title{\pkg{fivbvis}}
 \description{
-R package for getting data from FIVB VIS web server
+Client for the FIVB VIS web service
 }
