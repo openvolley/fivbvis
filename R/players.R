@@ -86,7 +86,8 @@ v_get_player <- function(no, fields) {
 #'
 #' @examples
 #' \dontrun{
-#'   pl <- list(No = 229, NumberOfScorers = 20, NumberOfPlayers = 20, Skills = "Block Dig Libero Reception Scorer Service Set Spike")
+#'   pl <- list(No = 229, NumberOfScorers = 20, NumberOfPlayers = 20,
+#'              Skills = "Block Dig Libero Reception Scorer Service Set Spike")
 #'   vb_player_ranking <- v_get_volley_player_ranking(parent = pl)
 #' }
 #'

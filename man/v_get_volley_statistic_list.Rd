@@ -32,7 +32,8 @@ By default, the web service returns the statictics by match. If you're intereste
   pl <- list(Fields = paste(v_fields("Volleyball Statistic"), collapse = " "))
   cl <- list(
     Filter = c(NoTournaments = s_tournament$no, MatchesToUse = "MatchesFinished"),
-    Relation = c(Name = "Match", Fields = "NoInTournament DateLocal TeamACode TeamBCode MatchResult"),
+    Relation = c(Name = "Match",
+                 Fields = "NoInTournament DateLocal TeamACode TeamBCode MatchResult"),
     Relation = c(Name = "Team", Fields = "Code Name"),
     Relation = c(Name = "Player", Fields = "TeamName FirstName LastName VolleyPosition")
   )
