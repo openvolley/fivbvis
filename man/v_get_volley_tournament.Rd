@@ -4,12 +4,16 @@
 \alias{v_get_volley_tournament}
 \title{Get a volleyball tournament}
 \usage{
-v_get_volley_tournament(parent, children)
+v_get_volley_tournament(no, fields, parent, children)
 }
 \arguments{
-\item{parent}{list: List of named charactor vectors. Specify attributes of Request Node.}
+\item{no}{integer: the tournament number ("No" as returned by \code{v_get_volley_tournament_list}). Provide either \code{no} (and optionally \code{fields}) OR \code{parent} (and optionally \code{children}). See Details}
 
-\item{children}{list: Named list of named charactor vectors. Add child nodes such as Filter, Relation.}
+\item{fields}{character: fields to return. Only relevant if \code{no} has been provided}
+
+\item{parent}{list: List of named charactor vectors. Specify attributes of Request Node. Ignored if \code{no} has been provided}
+
+\item{children}{list: Named list of named charactor vectors. Add child nodes such as Filter, Relation. Ignored if \code{no} has been provided}
 }
 \value{
 A data.frame
@@ -17,8 +21,15 @@ A data.frame
 \description{
 Get a volleyball tournament
 }
+\details{
+Parameters can be provided in two ways. The simple interface (retained for backwards compatibility) accepts \code{no} and optionally \code{fields}. More complex queries can be issued using the \code{parent} and \code{children} parameters.
+}
 \examples{
 \dontrun{
+  ## using the simple interface
+  v_get_volley_tournament(1257)
+
+  ## or equivalently
   pl <- list(No = 1257)
   v_get_volley_tournament(parent = pl)
 }
