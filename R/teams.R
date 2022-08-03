@@ -74,7 +74,7 @@ v_get_volley_team_ranking <- function(parent) {
   xml_parse_options <- c(XML::RECOVER, if (isTRUE(v_options()$huge_xml)) c(XML::COMPACT, XML::HUGE))
   out <- XML::xmlToList(XML::xmlParse(out, asText = TRUE, options = xml_parse_options))[[1]]
   out <- purrr::set_names(out, purrr::map_chr(out, ~ .x[[".attrs"]][1]))
-  out <- purrr::map(out, function(z) {
-    out <- dplyr::bind_rows(z[c(names(z) == "Team")])
+  purrr::map(out, function(z) {
+    dplyr::bind_rows(z[c(names(z) == "Team")])
   })
 }
