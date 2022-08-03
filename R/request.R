@@ -39,11 +39,13 @@ v_request <- function(type, fields, version, filter, old_style = FALSE, ...) {
 v_request2 <- function(type, parent, children) {
   body <- XML::xmlNode("Request", attrs = c(Type = type))
   if (!missing(parent) && length(parent) > 0) {
+    names(parent) <- first_to_upper(names(parent))
     body <- XML::addAttributes(body, .attrs = parent)
   }
   if (!missing(children) && length(children) > 0) {
     body <- XML::addChildren(body, kids = purrr::map(seq_along(children), function(z) {
       if (!missing(z) && length(children[z])) {
+        names(children[[z]]) <- first_to_upper(names(children[[z]]))
         XML::xmlNode(names(children[z]), attrs = children[[z]])
       }
     }))
@@ -103,7 +105,7 @@ make_request <- function(request, type = "xml", return_type = "parsed", node_pat
 }
 
 do_make_request <- function(request, type = "xml", return_type, node_path) {
-  if (inherits(request, "XMLNode")) {
+  if (inherits(request, c("XMLNode", "XMLElement"))) {
     request <- toString(request)
   }
   type <- match.arg(tolower(type), c("json", "xml"))
