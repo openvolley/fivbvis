@@ -18,7 +18,7 @@ v_get_beach_tournament <- function(no, fields) {
     ##      Fields="<Optional: list of the fields to return>" />
     req <- v_request(type = "GetBeachTournament", no = no, fields = fields)
     out <- make_request(req, node_path = "//BeachTournament")
-    out <- v_remap(out, col = "Type", schema = "Beach Tournament Type")
+    out <- v_remap(out, col = "TournamentType", schema = "Beach Tournament Type")
     out <- v_remap(out, col = "DefaultMatchFormat", schema = "Beach Match Format")
     out <- v_remap(out, col = "DispatchStatus", schema = "Beach Tournament Dispatch Status")
     out <- v_remap(out, col = "Gender", schema = "Event Gender")
