@@ -2,8 +2,24 @@
 % Please edit documentation in R/fivbvis-package.R
 \docType{package}
 \name{fivbvis}
+\alias{fivbvis-package}
 \alias{fivbvis}
 \title{\pkg{fivbvis}}
 \description{
 Client for the FIVB VIS web service
+}
+\author{
+\strong{Maintainer}: Ben Raymond \email{ben@untan.gl}
+
+Authors:
+\itemize{
+  \item Adrien Ickowicz
+  \item Tyler Widdison
+}
+
+Other contributors:
+\itemize{
+  \item openvolley.org [originator]
+}
+
 }

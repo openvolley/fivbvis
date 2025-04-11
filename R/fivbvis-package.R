@@ -8,4 +8,4 @@
 #' @importFrom methods as
 #' @importFrom tibble tibble tribble
 #' @importFrom utils capture.output download.file write.csv
-NULL
+"_PACKAGE"
