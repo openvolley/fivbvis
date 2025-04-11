@@ -6,6 +6,8 @@ Authors@R: c(person("Ben", "Raymond", email = "ben@untan.gl", role = c("aut", "c
              person("Tyler", "Widdison", role = "aut"),
              person("openvolley.org", role = "org"))
 Description: Client for the FIVB VIS web service.
+URL: https://fivbvis.openvolley.org, https://github.com/openvolley/fivbvis
+BugReports: https://github.com/openvolley/fivbvis/issues
 Imports:
     assertthat,
     data.table,
